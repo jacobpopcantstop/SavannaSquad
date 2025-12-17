@@ -1144,6 +1144,10 @@
             // Animation cleanup ref - stores timeout IDs for cleanup (Performance Fix #9 - Phase 2)
             const animationTimeoutsRef = useRef(new Set());
 
+            // Debouncing refs for visual effects (Performance Fix #11 - Phase 3)
+            const shakeTimeoutRef = useRef();
+            const confettiLastFired = useRef(0);
+
             // Optimized animation adding with proper cleanup
             const addScoreAnimation = useCallback((statName, val) => {
                 if (reduceMotion) return;
@@ -1270,16 +1274,24 @@
                     }
                     setStats(updatedStats);
 
-                    // Handle visual feedback
+                    // Handle visual feedback with debouncing (Performance Fix #11 - Phase 3)
                     if (!reduceMotion) {
                         const isBad = Object.values(choice.stats).some(v => v < 0);
                         const isGood = Object.values(choice.stats).every(v => v >= 0) && Object.values(choice.stats).some(v => v > 0);
 
+                        // Debounced shake animation
                         if (isBad) {
+                            // Clear any existing shake timeout
+                            if (shakeTimeoutRef.current) {
+                                clearTimeout(shakeTimeoutRef.current);
+                            }
                             setShaken(true);
-                            setTimeout(() => setShaken(false), 500);
+                            shakeTimeoutRef.current = setTimeout(() => setShaken(false), 500);
                         }
-                        if (isGood) {
+
+                        // Debounced confetti (max once per 300ms)
+                        if (isGood && Date.now() - confettiLastFired.current > 300) {
+                            confettiLastFired.current = Date.now();
                             window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 }, colors: ['#4F46E5', '#EC4899', '#F59E0B'] });
                         }
                     }
