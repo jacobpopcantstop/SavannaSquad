@@ -42,24 +42,25 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef, useMemo } = React;
+        const { useState, useEffect, useRef, useMemo, useCallback, memo } = React;
 
         // --- ROBUST ICON SYSTEM ---
-        const Icon = ({ path, size = 20, className = "" }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
+        // Memoized to prevent unnecessary re-renders (Performance Fix #1)
+        const Icon = memo(({ path, size = 20, className = "" }) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className={className}
                 dangerouslySetInnerHTML={{ __html: path }}
             />
-        );
+        ));
 
         const ICONS = {
             Heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
@@ -118,7 +119,8 @@
         };
 
         // --- Character Component with Props ---
-        const SavannaAvatar = ({ type, prop }) => {
+        // Memoized to prevent re-renders when type/prop haven't changed (Performance Fix #2 - Critical)
+        const SavannaAvatar = memo(({ type, prop }) => {
             const colors = {
                 buck: '#FCD34D', bobby: '#9CA3AF', athena: '#F59E0B',
                 hen: '#FDE047', eddie: '#6B7280', chimney: '#D97706', maddie: '#E5E7EB'
@@ -156,7 +158,7 @@
                     {renderProp()}
                 </svg>
             );
-        };
+        });
 
         // --- Game Data (Day 1 - Day 5) ---
         const SCENES = {
@@ -971,7 +973,6 @@
             const [flags, setFlags] = useState(new Set());
             const [scoreAnimations, setScoreAnimations] = useState([]);
             const [shaken, setShaken] = useState(false);
-            const [currentChoices, setCurrentChoices] = useState([]);
             const [reduceMotion, setReduceMotion] = useState(false);
             const [showSettings, setShowSettings] = useState(false);
             const [winMessage, setWinMessage] = useState("");
@@ -1047,18 +1048,30 @@
                 setCurrentSceneId(targetSceneId);
             };
 
-            // Choice Shuffling
-            useEffect(() => {
-                if (!scene) return;
-                let available = scene.choices.filter(c => {
+            // Choice Shuffling - Optimized with useMemo (Performance Fix #4 - Critical)
+            // Prevents re-shuffling on every render, only when scene/visited changes
+            const currentChoices = useMemo(() => {
+                if (!scene) return [];
+
+                // Special case for game_over scene
+                if (currentSceneId === 'game_over') {
+                    return scene.choices;
+                }
+
+                // Filter available choices
+                const available = scene.choices.filter(c => {
                     if (c.isExit) return true;
                     if (c.action) return true;
                     if (!c.targetChar) return true;
                     return !visited.has(c.targetChar);
                 });
 
-                const exitOption = available.find(c => c.isExit || c.action === 'retry' || c.text === 'Start my shift' || c.text === 'Play Again');
-                let others = available.filter(c => c !== exitOption);
+                // Separate exit option from others
+                const exitOption = available.find(c =>
+                    c.isExit || c.action === 'retry' ||
+                    c.text === 'Start my shift' || c.text === 'Play Again'
+                );
+                const others = available.filter(c => c !== exitOption);
 
                 // Fisher-Yates Shuffle
                 for (let i = others.length - 1; i > 0; i--) {
@@ -1066,17 +1079,17 @@
                     [others[i], others[j]] = [others[j], others[i]];
                 }
 
-                if (exitOption) others.push(exitOption);
-                
-                if (currentSceneId === 'game_over') {
-                    setCurrentChoices(scene.choices);
-                } else {
-                    setCurrentChoices(others);
-                }
+                // Add exit option at the end
+                return exitOption ? [...others, exitOption] : others;
             }, [currentSceneId, visited, scene]);
 
+            // Keyboard event listener - Optimized with useRef (Performance Fix #5 - Critical)
+            // Prevents recreating event listener on every render
+            const handleKeyDownRef = useRef();
+
+            // Update the ref with latest values on every render
             useEffect(() => {
-                const handleKeyDown = (e) => {
+                handleKeyDownRef.current = (e) => {
                     if (feedback) {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
@@ -1090,9 +1103,14 @@
                         if (currentChoices[index]) handleChoice(currentChoices[index]);
                     }
                 };
+            });
+
+            // Add event listener only once on mount
+            useEffect(() => {
+                const handleKeyDown = (e) => handleKeyDownRef.current?.(e);
                 window.addEventListener('keydown', handleKeyDown);
                 return () => window.removeEventListener('keydown', handleKeyDown);
-            }, [currentChoices, feedback]);
+            }, []); // Empty deps - only mount/unmount
 
             useEffect(() => {
                 if (currentSceneId.includes('hub') || currentSceneId === 'start') setLastChapterStart(currentSceneId);
@@ -1114,71 +1132,95 @@
                 setTimeout(() => setScoreAnimations(prev => prev.filter(a => a.id !== id)), 1000);
             };
 
-            const handleChoice = (choice) => {
+            // Optimized handleChoice - Batches state updates (Performance Fix #6 - Critical)
+            const handleChoice = useCallback((choice) => {
                 stop();
-                
+
                 // Random Event Trigger (15% chance)
                 if (!choice.action && !choice.isExit && Math.random() < 0.15) {
                     const event = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
+
+                    // Batch all animations and stats together
+                    const newAnimations = [];
+                    let updatedStats = { ...stats };
+
                     // Apply random event stats
                     if (event.effect) {
-                        Object.keys(event.effect).forEach(key => {
-                            addScoreAnimation(key, event.effect[key]);
-                        });
-                        setStats(prev => {
-                            const newStats = { ...prev };
-                            Object.keys(event.effect).forEach(key => {
-                                newStats[key] = Math.max(0, Math.min(10, prev[key] + event.effect[key]));
+                        if (!reduceMotion) {
+                            Object.entries(event.effect).forEach(([key, val]) => {
+                                const id = Date.now() + Math.random();
+                                newAnimations.push({ id, statName: key, val });
+                                setTimeout(() => setScoreAnimations(prev => prev.filter(a => a.id !== id)), 1000);
                             });
-                            return newStats;
+                        }
+
+                        Object.entries(event.effect).forEach(([key, val]) => {
+                            updatedStats[key] = Math.max(0, Math.min(10, updatedStats[key] + val));
                         });
                     }
-                    // Show event in feedback modal style
-                    setFeedback({ 
-                        message: `LIFE EVENT: ${event.text}`, 
-                        nextScene: choice.nextScene, // Proceed to intended scene after
+
+                    // Apply choice stats
+                    if (choice.stats) {
+                        Object.entries(choice.stats).forEach(([key, val]) => {
+                            updatedStats[key] = Math.max(0, Math.min(10, updatedStats[key] + val));
+                        });
+                    }
+
+                    // Batch all state updates together
+                    if (newAnimations.length > 0) {
+                        setScoreAnimations(prev => [...prev, ...newAnimations]);
+                    }
+                    setStats(updatedStats);
+                    setFeedback({
+                        message: `LIFE EVENT: ${event.text}`,
+                        nextScene: choice.nextScene,
                         statChange: event.effect
                     });
-                    
-                    // Apply choice stats as well? Or skip? Let's apply choice stats too so player isn't cheated.
-                    if (choice.stats) {
-                         setStats(prev => {
-                            const newStats = { ...prev };
-                            Object.keys(choice.stats).forEach(key => {
-                                newStats[key] = Math.max(0, Math.min(10, prev[key] + choice.stats[key]));
-                            });
-                            return newStats;
-                        });
+                    if (choice.targetChar) {
+                        setVisited(prev => new Set(prev).add(choice.targetChar));
                     }
-                    if (choice.targetChar) setVisited(prev => new Set(prev).add(choice.targetChar));
-                    return; // Stop here, feedback modal handles transition
+                    return;
                 }
 
-
+                // Retry action
                 if (choice.action === 'retry') {
                     setStats({ emp: 5, prof: 5, assert: 5, pat: 5, reg: 5 });
                     setVisited(new Set());
                     setCurrentSceneId(lastChapterStart);
                     return;
                 }
+
+                // Normal choice handling - batch animations and stats
                 if (choice.stats) {
-                    // Update all 5 stats
-                    Object.keys(choice.stats).forEach(key => {
-                        if (choice.stats[key] !== 0) addScoreAnimation(key, choice.stats[key]);
-                    });
+                    const newAnimations = [];
+                    const updatedStats = { ...stats };
 
-                    setStats(prev => {
-                        const newStats = { ...prev };
-                        Object.keys(choice.stats).forEach(key => {
-                            newStats[key] = Math.max(0, Math.min(10, prev[key] + choice.stats[key]));
+                    // Collect all animations and stat changes
+                    if (!reduceMotion) {
+                        Object.entries(choice.stats).forEach(([key, val]) => {
+                            if (val !== 0) {
+                                const id = Date.now() + Math.random();
+                                newAnimations.push({ id, statName: key, val });
+                                setTimeout(() => setScoreAnimations(prev => prev.filter(a => a.id !== id)), 1000);
+                            }
                         });
-                        return newStats;
+                    }
+
+                    Object.entries(choice.stats).forEach(([key, val]) => {
+                        updatedStats[key] = Math.max(0, Math.min(10, stats[key] + val));
                     });
 
+                    // Batch animation and stats updates
+                    if (newAnimations.length > 0) {
+                        setScoreAnimations(prev => [...prev, ...newAnimations]);
+                    }
+                    setStats(updatedStats);
+
+                    // Handle visual feedback
                     if (!reduceMotion) {
                         const isBad = Object.values(choice.stats).some(v => v < 0);
                         const isGood = Object.values(choice.stats).every(v => v >= 0) && Object.values(choice.stats).some(v => v > 0);
-                        
+
                         if (isBad) {
                             setShaken(true);
                             setTimeout(() => setShaken(false), 500);
@@ -1188,29 +1230,32 @@
                         }
                     }
                 }
-                
-                // Flag tracking
+
+                // Batch flag and visited updates
                 if (choice.flag) {
                     setFlags(prev => new Set(prev).add(choice.flag));
                 }
+                if (choice.targetChar) {
+                    setVisited(prev => new Set(prev).add(choice.targetChar));
+                }
 
-                if (choice.targetChar) setVisited(prev => new Set(prev).add(choice.targetChar));
+                // Handle feedback or scene transition
                 if (choice.feedback) {
                     setFeedback({ message: choice.feedback, nextScene: choice.nextScene, statChange: choice.stats });
-                } else {
-                    if (choice.nextScene) transitionToScene(choice.nextScene);
+                } else if (choice.nextScene) {
+                    transitionToScene(choice.nextScene);
                 }
-            };
+            }, [stats, reduceMotion, stop, lastChapterStart]);
 
-            const handleFeedbackDismiss = () => {
+            const handleFeedbackDismiss = useCallback(() => {
                 stop();
                 if (feedback) {
                     if (feedback.nextScene) transitionToScene(feedback.nextScene);
                     setFeedback(null);
                 }
-            };
+            }, [feedback, stop]);
 
-            const resetGame = () => {
+            const resetGame = useCallback(() => {
                 stop();
                 setCurrentSceneId('start');
                 setStats({ emp: 5, prof: 5, assert: 5, pat: 5, reg: 5 });
@@ -1218,7 +1263,7 @@
                 setVisited(new Set());
                 setFlags(new Set());
                 setWinMessage("");
-            };
+            }, [stop]);
 
             const readCurrentScene = () => {
                 let textToRead = "";
@@ -1240,25 +1285,33 @@
                 speak(textToRead);
             };
 
-            // Stat Bar Component
-            const StatBar = ({ label, value, icon, colorClass, barColorClass, statKey }) => (
-                <div className="flex flex-col mb-2 relative">
-                    {scoreAnimations.filter(a => a.statName === statKey).map(anim => (
-                        <div key={anim.id} className={`absolute right-0 -top-4 text-lg font-black ${anim.val > 0 ? 'text-green-400' : 'text-red-500'} animate-float z-50`}>
-                            {anim.val > 0 ? '+' : ''}{anim.val}
+            // Stat Bar Component - Memoized with optimized animation filtering (Performance Fix #3 - Critical)
+            const StatBar = memo(({ label, value, icon, colorClass, barColorClass, statKey }) => {
+                // Memoize the filter operation to avoid re-filtering on every render
+                const relevantAnimations = useMemo(() =>
+                    scoreAnimations.filter(a => a.statName === statKey),
+                    [scoreAnimations, statKey]
+                );
+
+                return (
+                    <div className="flex flex-col mb-2 relative">
+                        {relevantAnimations.map(anim => (
+                            <div key={anim.id} className={`absolute right-0 -top-4 text-lg font-black ${anim.val > 0 ? 'text-green-400' : 'text-red-500'} animate-float z-50`}>
+                                {anim.val > 0 ? '+' : ''}{anim.val}
+                            </div>
+                        ))}
+                        <div className="flex items-center gap-2 mb-1">
+                            <Icon path={icon} className={colorClass} size={16} />
+                            <span className={`text-[10px] font-bold uppercase tracking-wider ${colorClass}`}>{label}</span>
+                            {value >= 10 && <Icon path={ICONS.Star} className="text-yellow-400 ml-1" size={14} />}
+                            <span className="ml-auto text-xs font-bold text-slate-400">{value}/10</span>
                         </div>
-                    ))}
-                    <div className="flex items-center gap-2 mb-1">
-                        <Icon path={icon} className={colorClass} size={16} />
-                        <span className={`text-[10px] font-bold uppercase tracking-wider ${colorClass}`}>{label}</span>
-                        {value >= 10 && <Icon path={ICONS.Star} className="text-yellow-400 ml-1" size={14} />}
-                        <span className="ml-auto text-xs font-bold text-slate-400">{value}/10</span>
+                        <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden shadow-inner border border-slate-700">
+                            <div className={`h-full transition-all duration-500 ease-out ${value >= 10 ? 'bg-yellow-400' : barColorClass} ${value <= 2 ? 'animate-pulse bg-red-500' : ''}`} style={{ width: `${Math.min(100, value * 10)}%` }} />
+                        </div>
                     </div>
-                    <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden shadow-inner border border-slate-700">
-                        <div className={`h-full transition-all duration-500 ease-out ${value >= 10 ? 'bg-yellow-400' : barColorClass} ${value <= 2 ? 'animate-pulse bg-red-500' : ''}`} style={{ width: `${Math.min(100, value * 10)}%` }} />
-                    </div>
-                </div>
-            );
+                );
+            });
 
             return (
                 <div className={`min-h-screen flex items-center justify-center p-4 font-sans bg-slate-950 text-slate-100 ${shaken ? 'animate-shake' : ''}`}>
