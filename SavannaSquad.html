@@ -980,8 +980,21 @@
 
             const scene = SCENES[currentSceneId];
 
-            // Share functionality
-            const handleShare = () => {
+            // Memoize scene text computation (Performance Fix #7 - Phase 2)
+            // Prevents calling scene.text function twice per render
+            const sceneText = useMemo(() => {
+                if (!scene) return '';
+                if (typeof scene.text === 'function') {
+                    return scene.text(flags);
+                }
+                if (currentSceneId === 'win_game') {
+                    return winMessage;
+                }
+                return scene.text;
+            }, [scene, flags, currentSceneId, winMessage]);
+
+            // Share functionality - Optimized with useCallback (Performance Fix #10 - Phase 2)
+            const handleShare = useCallback(() => {
                 const subject = encodeURIComponent("My Savanna Squad Score Report");
                 const bodyText = `I finished my 5-Day Shift at the Savanna 118!\n\nMy Stats:\n` +
                     `❤️ Caring: ${stats.emp}/10\n` +
@@ -993,10 +1006,10 @@
                 const body = encodeURIComponent(bodyText);
                 const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&su=${subject}&body=${body}`;
                 window.open(gmailLink, '_blank');
-            };
+            }, [stats]);
 
-            // Transition Logic with Auto-Skip
-            const transitionToScene = (targetSceneId) => {
+            // Transition Logic with Auto-Skip - Optimized with useCallback (Performance Fix #8 - Phase 2)
+            const transitionToScene = useCallback((targetSceneId) => {
                 if (targetSceneId === 'end_game') {
                     // Check if survive (no stats <= 0)
                     const survival = Object.values(stats).every(val => val > 0);
@@ -1004,25 +1017,27 @@
                         // Generate dynamic win message
                         const perfect = Object.values(stats).every(val => val >= 10);
                         let msg = "";
-                        
+
                         if (perfect) {
                             msg = "LEGENDARY 5-DAY SHIFT! You saved the station! (10/10 in everything!)";
                         } else {
-                            const highs = Object.entries(stats).filter(([k,v]) => v >= 9).map(([k]) => {
-                                const map = { emp: 'Caring', prof: 'Professional', assert: 'Speaking Up', pat: 'Patient', reg: 'Calm' };
-                                return map[k];
-                            });
-                            const lows = Object.entries(stats).filter(([k,v]) => v <= 4).map(([k]) => {
-                                const map = { emp: 'Caring', prof: 'Professional', assert: 'Speaking Up', pat: 'Patient', reg: 'Calm' };
-                                return map[k];
-                            });
-                            
+                            // Extract stat name mapping to avoid duplication
+                            const statMap = { emp: 'Caring', prof: 'Professional', assert: 'Speaking Up', pat: 'Patient', reg: 'Calm' };
+
+                            const highs = Object.entries(stats)
+                                .filter(([k, v]) => v >= 9)
+                                .map(([k]) => statMap[k]);
+
+                            const lows = Object.entries(stats)
+                                .filter(([k, v]) => v <= 4)
+                                .map(([k]) => statMap[k]);
+
                             msg = "5-Day Shift Complete! You survived the fire!";
                             if (highs.length > 0) msg += ` You were super ${highs.join(' & ')}!`;
                             if (lows.length > 0) msg += ` But you can work on being more ${lows.join(' & ')}.`;
                             if (highs.length === 0 && lows.length === 0) msg += " You had a solid, balanced performance.";
                         }
-                        
+
                         setWinMessage(msg);
                         setCurrentSceneId('win_game');
                         return;
@@ -1039,14 +1054,14 @@
                         return !visited.has(c.targetChar);
                     });
 
-                    // If only exit remains, skip the hub
+                    // If only exit remains, skip the hub (use setTimeout to avoid deep recursion)
                     if (available.length === 1 && available[0].isExit) {
-                        transitionToScene(available[0].nextScene);
+                        setTimeout(() => transitionToScene(available[0].nextScene), 0);
                         return;
                     }
                 }
                 setCurrentSceneId(targetSceneId);
-            };
+            }, [stats, visited]);
 
             // Choice Shuffling - Optimized with useMemo (Performance Fix #4 - Critical)
             // Prevents re-shuffling on every render, only when scene/visited changes
@@ -1125,12 +1140,30 @@
                 }
             }, [stats, currentSceneId]);
 
-            const addScoreAnimation = (statName, val) => {
+            // Animation cleanup ref - stores timeout IDs for cleanup (Performance Fix #9 - Phase 2)
+            const animationTimeoutsRef = useRef(new Set());
+
+            // Optimized animation adding with proper cleanup
+            const addScoreAnimation = useCallback((statName, val) => {
                 if (reduceMotion) return;
                 const id = Date.now() + Math.random();
                 setScoreAnimations(prev => [...prev, { id, statName, val }]);
-                setTimeout(() => setScoreAnimations(prev => prev.filter(a => a.id !== id)), 1000);
-            };
+
+                const timeoutId = setTimeout(() => {
+                    setScoreAnimations(prev => prev.filter(a => a.id !== id));
+                    animationTimeoutsRef.current.delete(timeoutId);
+                }, 1000);
+
+                animationTimeoutsRef.current.add(timeoutId);
+            }, [reduceMotion]);
+
+            // Cleanup all animation timeouts on unmount
+            useEffect(() => {
+                return () => {
+                    animationTimeoutsRef.current.forEach(timeoutId => clearTimeout(timeoutId));
+                    animationTimeoutsRef.current.clear();
+                };
+            }, []);
 
             // Optimized handleChoice - Batches state updates (Performance Fix #6 - Critical)
             const handleChoice = useCallback((choice) => {
@@ -1150,7 +1183,11 @@
                             Object.entries(event.effect).forEach(([key, val]) => {
                                 const id = Date.now() + Math.random();
                                 newAnimations.push({ id, statName: key, val });
-                                setTimeout(() => setScoreAnimations(prev => prev.filter(a => a.id !== id)), 1000);
+                                const timeoutId = setTimeout(() => {
+                                    setScoreAnimations(prev => prev.filter(a => a.id !== id));
+                                    animationTimeoutsRef.current.delete(timeoutId);
+                                }, 1000);
+                                animationTimeoutsRef.current.add(timeoutId);
                             });
                         }
 
@@ -1201,7 +1238,11 @@
                             if (val !== 0) {
                                 const id = Date.now() + Math.random();
                                 newAnimations.push({ id, statName: key, val });
-                                setTimeout(() => setScoreAnimations(prev => prev.filter(a => a.id !== id)), 1000);
+                                const timeoutId = setTimeout(() => {
+                                    setScoreAnimations(prev => prev.filter(a => a.id !== id));
+                                    animationTimeoutsRef.current.delete(timeoutId);
+                                }, 1000);
+                                animationTimeoutsRef.current.add(timeoutId);
                             }
                         });
                     }
@@ -1265,13 +1306,17 @@
                 setWinMessage("");
             }, [stop]);
 
-            const readCurrentScene = () => {
+            const toggleSettings = useCallback(() => {
+                setShowSettings(prev => !prev);
+            }, []);
+
+            const readCurrentScene = useCallback(() => {
                 let textToRead = "";
                 if (feedback) {
                     textToRead = `Review. ${feedback.message}. Click continue.`;
                 } else {
-                    // Handle dynamic text function
-                    let displayText = typeof scene.text === 'function' ? scene.text(flags) : (currentSceneId === 'win_game' ? winMessage : scene.text);
+                    // Use memoized sceneText instead of recomputing
+                    const displayText = sceneText;
 
                     if (scene.speaker === 'Narrator' || scene.speaker.includes('Watering Hole') || scene.speaker.includes('Truck') || scene.speaker.includes('Bunk') || scene.speaker.includes('Roof') || scene.speaker.includes('Planning') || scene.speaker.includes('Station') || scene.speaker.includes('Community') || scene.speaker.includes('Muddy') || scene.speaker === 'System') {
                         textToRead = `${displayText} `;
@@ -1283,7 +1328,7 @@
                     });
                 }
                 speak(textToRead);
-            };
+            }, [feedback, sceneText, scene, currentChoices, speak]);
 
             // Stat Bar Component - Memoized with optimized animation filtering (Performance Fix #3 - Critical)
             const StatBar = memo(({ label, value, icon, colorClass, barColorClass, statKey }) => {
@@ -1317,7 +1362,7 @@
                 <div className={`min-h-screen flex items-center justify-center p-4 font-sans bg-slate-950 text-slate-100 ${shaken ? 'animate-shake' : ''}`}>
                     {/* Settings */}
                     <div className="fixed top-4 right-4 z-50">
-                        <button onClick={() => setShowSettings(!showSettings)} className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 text-slate-300 border border-slate-700 shadow-lg">
+                        <button onClick={toggleSettings} className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 text-slate-300 border border-slate-700 shadow-lg">
                             <Icon path={ICONS.Settings} />
                         </button>
                         {showSettings && (
@@ -1428,7 +1473,7 @@
                                             </div>
                                         )}
                                         <p className="text-xl md:text-2xl text-slate-100 font-semibold leading-relaxed mt-4 mb-6">
-                                            {typeof scene?.text === 'function' ? scene.text(flags) : (currentSceneId === 'win_game' ? winMessage : scene?.text)}
+                                            {sceneText}
                                         </p>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-auto">
                                             {currentChoices.map((choice, idx) => (
