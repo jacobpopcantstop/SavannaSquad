@@ -265,10 +265,10 @@
                 text: "Captain Bobby (The Elephant) is polishing the fire truck. \"Welcome, Ayshe. Ready to join the herd?\"",
                 speaker: "Bobby (Elephant)",
                 choices: [
-                    { text: "\"Hi Captain! The truck looks great.\"", nextScene: 'level1_hub', stats: { prof: 1, emp: 1, pat: 0, reg: 0, assert: 1 }, feedback: "Professional, Kind, & Assertive. Starting with confidence builds rapport." },
-                    { text: "\"I'm freaking out about the schedule!\"", nextScene: 'level1_hub', stats: { prof: -1, emp: 0, pat: 0, reg: -1, assert: 0 }, feedback: "Logistical Anxiety. This is an 'Unexpected' first greeting. Take a breath first." },
-                    { text: "*Try to climb on his back*", nextScene: 'level1_hub', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, flag: 'rode_bobby', feedback: "Crazy Cuckoo! Unexpected behavior. He is your boss, not a pony. (-3 Professional)" },
-                    { text: "\"It smells weird here.\"", nextScene: 'level1_hub', stats: { prof: -1, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Negativity. Complaining first thing sets a bad tone." }
+                    { text: "\"Hi Captain! The truck looks great.\"", nextScene: 'level1_hub', stats: { prof: 1, emp: 1, pat: 0, reg: 0, assert: 1 }, feedback: "Professional, Kind, & Assertive. Starting with confidence builds rapport. (+1 Professional, +1 Caring, +1 Speaking Up)" },
+                    { text: "\"I'm freaking out about the schedule!\"", nextScene: 'level1_hub', stats: { prof: -1, emp: 0, pat: 0, reg: -1, assert: 0 }, feedback: "Logistical Anxiety. This is an 'Unexpected' first greeting. Take a breath first. (-1 Professional, -1 Calm)" },
+                    { text: "*Try to climb on his back*", nextScene: 'level1_hub', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, flag: 'rode_bobby', feedback: "Crazy Cuckoo! Unexpected behavior. He is your boss, not a pony. (-3 Professional, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"It smells weird here.\"", nextScene: 'level1_hub', stats: { prof: -1, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Negativity. Complaining first thing sets a bad tone. (-1 Professional, -2 Caring)" }
                 ]
             },
             level1_hub: {
@@ -291,10 +291,10 @@
                 text: "Buck is pacing. \"I feel like I lost my roar on that last call.\"",
                 speaker: "Buck (Lion)",
                 choices: [
-                    { text: "\"What happened? I'm listening.\"", nextScene: 'buck_success', stats: { prof: 0, emp: 1, pat: 1, reg: 0, assert: 0 }, feedback: "Patience & Empathy. Listening helps. (+1 Empathetic)" },
-                    { text: "*Roar loudly* \"I am the alpha!\"", nextScene: 'buck_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, flag: 'roared_at_buck', feedback: "Crazy Cuckoo! High energy at the wrong time. (+2 Assertive, -3 Professional)" },
-                    { text: "\"My paws hurt.\"", nextScene: 'buck_fail', stats: { prof: 0, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Thinking of yourself. Focus on him." },
-                    { text: "\"Get over it, lion.\"", nextScene: 'buck_fail', stats: { prof: 0, emp: -3, pat: 0, reg: 0, assert: 1 }, feedback: "Dismissive. That hurts feelings. (+1 Assertive, -3 Empathetic)" }
+                    { text: "\"What happened? I'm listening.\"", nextScene: 'buck_success', stats: { prof: 0, emp: 1, pat: 1, reg: 0, assert: 0 }, feedback: "Patience & Empathy. Listening helps. (+1 Caring, +1 Patient)" },
+                    { text: "*Roar loudly* \"I am the alpha!\"", nextScene: 'buck_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, flag: 'roared_at_buck', feedback: "Crazy Cuckoo! High energy at the wrong time. (-3 Professional, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"My paws hurt.\"", nextScene: 'buck_fail', stats: { prof: 0, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Thinking of yourself. Focus on him. (-2 Caring)" },
+                    { text: "\"Get over it, lion.\"", nextScene: 'buck_fail', stats: { prof: 0, emp: -3, pat: 0, reg: 0, assert: 1 }, feedback: "Dismissive. That hurts feelings. (-3 Caring, +1 Speaking Up)" }
                 ]
             },
             buck_success: { id: 'buck_success', bg: 'from-yellow-900 to-slate-900', character: 'buck', mood: 'happy', text: "\"Thanks. Talking helps.\"", speaker: "Buck", choices: [{ text: "Return", nextScene: 'level1_hub' }] },
@@ -306,10 +306,10 @@
                 text: "\"That hyena detective ruined my crime scene!\"",
                 speaker: "Athena (Lioness)",
                 choices: [
-                    { text: "*Listen quietly*", nextScene: 'athena_success', stats: { prof: 1, emp: 1, pat: 2, reg: 1, assert: 0 }, feedback: "Waiting & Calm. Good listening skills. (+0 Assertive)" },
-                    { text: "\"Stop scratching things!\"", nextScene: 'athena_fail', stats: { prof: -2, emp: -2, pat: 0, reg: -1, assert: 1 }, feedback: "Bossy. Don't correct the Queen. (+1 Assertive, -2 Professional)" },
-                    { text: "\"Let's eat him!\"", nextScene: 'athena_success', stats: { prof: -3, emp: 1, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! She likes the loyalty, but eating coworkers is against HR policy. (+2 Assertive, -3 Professional)" },
-                    { text: "\"Hyenas are gross.\"", nextScene: 'athena_success', stats: { prof: -1, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Bonding. Shared enemy works, but it's not very professional. (-1 Professional)" }
+                    { text: "*Listen quietly*", nextScene: 'athena_success', stats: { prof: 1, emp: 1, pat: 2, reg: 1, assert: 0 }, feedback: "Waiting & Calm. Good listening skills. (+1 Professional, +1 Caring, +2 Patient, +1 Calm)" },
+                    { text: "\"Stop scratching things!\"", nextScene: 'athena_fail', stats: { prof: -2, emp: -2, pat: 0, reg: -1, assert: 1 }, feedback: "Bossy. Don't correct the Queen. (-2 Professional, -2 Caring, -1 Calm, +1 Speaking Up)" },
+                    { text: "\"Let's eat him!\"", nextScene: 'athena_success', stats: { prof: -3, emp: 1, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! She likes the loyalty, but eating coworkers is against HR policy. (-3 Professional, +1 Caring, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"Hyenas are gross.\"", nextScene: 'athena_success', stats: { prof: -1, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Bonding. Shared enemy works, but it's not very professional. (-1 Professional, +1 Caring)" }
                 ]
             },
             athena_success: { id: 'athena_success', bg: 'from-blue-900 to-slate-900', character: 'athena', text: "\"Exactly. Thanks Ayshe.\"", speaker: "Athena", choices: [{ text: "Return", nextScene: 'level1_hub' }] },
@@ -321,10 +321,10 @@
                 text: "Hen is studying hard. \"Anatomy is so hard.\"",
                 speaker: "Hen (Giraffe)",
                 choices: [
-                    { text: "*Offer snack break*", nextScene: 'hen_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Kindness. Gifts help relationship building. (+1 Empathetic)" },
-                    { text: "\"I hate my notes!\"", nextScene: 'hen_fail', stats: { prof: -1, emp: -1, pat: 0, reg: -1, assert: 0 }, feedback: "Complaining. Don't make it about you right now." },
-                    { text: "\"Can you see the future?\"", nextScene: 'hen_fail', stats: { prof: -2, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Crazy Cuckoo! Weird question." },
-                    { text: "*Wait 5 minutes*", nextScene: 'hen_success', stats: { prof: 1, emp: 1, pat: 3, reg: 1, assert: 0 }, flag: 'waited_for_hen', feedback: "High Patience! Great strategy." }
+                    { text: "*Offer snack break*", nextScene: 'hen_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Kindness. Gifts help relationship building. (+1 Caring)" },
+                    { text: "\"I hate my notes!\"", nextScene: 'hen_fail', stats: { prof: -1, emp: -1, pat: 0, reg: -1, assert: 0 }, feedback: "Complaining. Don't make it about you right now. (-1 Professional, -1 Caring, -1 Calm)" },
+                    { text: "\"Can you see the future?\"", nextScene: 'hen_fail', stats: { prof: -2, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Crazy Cuckoo! Weird question. (-2 Professional)" },
+                    { text: "*Wait 5 minutes*", nextScene: 'hen_success', stats: { prof: 1, emp: 1, pat: 3, reg: 1, assert: 0 }, flag: 'waited_for_hen', feedback: "High Patience! Great strategy. (+1 Professional, +1 Caring, +3 Patient, +1 Calm)" }
                 ]
             },
             hen_success: { id: 'hen_success', bg: 'from-indigo-900 to-slate-900', character: 'hen', text: "\"You're sweet. Thanks.\"", speaker: "Hen", choices: [{ text: "Return", nextScene: 'level1_hub' }] },
@@ -351,10 +351,10 @@
                 text: "\"Did you know a group of rhinos is called a crash?\"",
                 speaker: "Chimney (Meerkat)",
                 choices: [
-                    { text: "\"Haha! Funny.\"", nextScene: 'chimney_success', stats: { prof: 0, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Social connection. Laughing helps." },
-                    { text: "\"MY EARS HURT!\"", nextScene: 'chimney_fail', stats: { prof: -2, emp: -1, pat: -1, reg: -3, assert: 0 }, feedback: "Losing control. Don't scream." },
-                    { text: "*Dig a hole*", nextScene: 'chimney_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Dangerous behavior." },
-                    { text: "\"Actually it's a stubbornness.\"", nextScene: 'chimney_fail', stats: { prof: 0, emp: -1, pat: 0, reg: 0, assert: 1 }, feedback: "Checking facts. Kills the joke. (+1 Assertive, -1 Empathetic)" }
+                    { text: "\"Haha! Funny.\"", nextScene: 'chimney_success', stats: { prof: 0, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Social connection. Laughing helps. (+1 Caring, +1 Calm)" },
+                    { text: "\"MY EARS HURT!\"", nextScene: 'chimney_fail', stats: { prof: -2, emp: -1, pat: -1, reg: -3, assert: 0 }, feedback: "Losing control. Don't scream. (-2 Professional, -1 Caring, -1 Patient, -3 Calm)" },
+                    { text: "*Dig a hole*", nextScene: 'chimney_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Dangerous behavior. (-3 Professional, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"Actually it's a stubbornness.\"", nextScene: 'chimney_fail', stats: { prof: 0, emp: -1, pat: 0, reg: 0, assert: 1 }, feedback: "Checking facts. Kills the joke. (-1 Caring, +1 Speaking Up)" }
                 ]
             },
             chimney_success: { id: 'chimney_success', bg: 'from-red-900 to-slate-900', character: 'chimney', text: "\"I knew you'd get it!\"", speaker: "Chimney", choices: [{ text: "Back to seat", nextScene: 'level2_hub' }] },
@@ -366,10 +366,10 @@
                 text: "Eddie is checking buckles silently.",
                 speaker: "Eddie (Rhino)",
                 choices: [
-                    { text: "*Wait patiently*", nextScene: 'eddie_success', stats: { prof: 1, emp: 0, pat: 2, reg: 1, assert: 0 }, feedback: "Waiting. Respecting his need for focus." },
-                    { text: "\"Why is your skin thick?\"", nextScene: 'eddie_fail', stats: { prof: -1, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Rude question about looks." },
-                    { text: "*Wrestle him*", nextScene: 'eddie_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Not safe." },
-                    { text: "\"I'm scared.\"", nextScene: 'eddie_success', stats: { prof: 0, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Being honest. It's okay to share." }
+                    { text: "*Wait patiently*", nextScene: 'eddie_success', stats: { prof: 1, emp: 0, pat: 2, reg: 1, assert: 0 }, feedback: "Waiting. Respecting his need for focus. (+1 Professional, +2 Patient, +1 Calm)" },
+                    { text: "\"Why is your skin thick?\"", nextScene: 'eddie_fail', stats: { prof: -1, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Rude question about looks. (-1 Professional, -2 Caring)" },
+                    { text: "*Wrestle him*", nextScene: 'eddie_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Not safe. (-3 Professional, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"I'm scared.\"", nextScene: 'eddie_success', stats: { prof: 0, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Being honest. It's okay to share. (+1 Caring, +1 Calm)" }
                 ]
             },
             eddie_success: { id: 'eddie_success', bg: 'from-red-900 to-slate-900', character: 'eddie', text: "\"Stay close to me.\"", speaker: "Eddie", choices: [{ text: "Back to seat", nextScene: 'level2_hub' }] },
@@ -397,10 +397,10 @@
                 text: "Zzzzz...",
                 speaker: "Buck (Asleep)",
                 choices: [
-                    { text: "*Poke him* \"Wake up!\"", nextScene: 'l3_buck_fail', stats: { prof: -2, emp: -2, pat: -1, reg: -2, assert: 0 }, feedback: "Bad boundaries. Don't wake people." },
-                    { text: "*Tiptoe away softly*", nextScene: 'l3_buck_success', stats: { prof: 1, emp: 1, pat: 1, reg: 1, assert: 0 }, feedback: "Respect. You noticed he wasn't available." },
-                    { text: "*Cut his mane*", nextScene: 'l3_buck_fail', stats: { prof: -3, emp: -3, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! Never touch without asking." },
-                    { text: "*Find something else*", nextScene: 'l3_buck_success', stats: { prof: 0, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Calming yourself. Handling boredom well." }
+                    { text: "*Poke him* \"Wake up!\"", nextScene: 'l3_buck_fail', stats: { prof: -2, emp: -2, pat: -1, reg: -2, assert: 0 }, feedback: "Bad boundaries. Don't wake people. (-2 Professional, -2 Caring, -1 Patient, -2 Calm)" },
+                    { text: "*Tiptoe away softly*", nextScene: 'l3_buck_success', stats: { prof: 1, emp: 1, pat: 1, reg: 1, assert: 0 }, feedback: "Respect. You noticed he wasn't available. (+1 Professional, +1 Caring, +1 Patient, +1 Calm)" },
+                    { text: "*Cut his mane*", nextScene: 'l3_buck_fail', stats: { prof: -3, emp: -3, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! Never touch without asking. (-3 Professional, -3 Caring, -3 Calm, +2 Speaking Up)" },
+                    { text: "*Find something else*", nextScene: 'l3_buck_success', stats: { prof: 0, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Calming yourself. Handling boredom well. (+1 Patient, +1 Calm)" }
                 ]
             },
             l3_buck_success: { id: 'l3_buck_success', bg: 'from-blue-950 to-black', character: null, text: "He sleeps on.", speaker: "Narrator", choices: [{ text: "Back to Bunks", nextScene: 'level3_hub' }] },
@@ -412,10 +412,10 @@
                 text: "Maddie is whispering on the phone.",
                 speaker: "Maddie (Gazelle)",
                 choices: [
-                    { text: "*Wait nearby*", nextScene: 'l3_maddie_success', stats: { prof: 1, emp: 1, pat: 3, reg: 1, assert: 0 }, feedback: "High Patience. Perfect waiting." },
-                    { text: "\"LOOK AT ME!\"", nextScene: 'l3_maddie_fail', stats: { prof: -2, emp: -1, pat: -2, reg: -1, assert: 0 }, feedback: "Interruption. Wait your turn." },
-                    { text: "\"Tell the President hi!\"", nextScene: 'l3_maddie_fail', stats: { prof: 0, emp: 0, pat: 0, reg: -1, assert: 1 }, feedback: "Crazy Cuckoo! Confusing." },
-                    { text: "\"I'm hungry.\"", nextScene: 'l3_maddie_fail', stats: { prof: 0, emp: 0, pat: -1, reg: 0, assert: 0 }, feedback: "Impatience." }
+                    { text: "*Wait nearby*", nextScene: 'l3_maddie_success', stats: { prof: 1, emp: 1, pat: 3, reg: 1, assert: 0 }, feedback: "High Patience. Perfect waiting. (+1 Professional, +1 Caring, +3 Patient, +1 Calm)" },
+                    { text: "\"LOOK AT ME!\"", nextScene: 'l3_maddie_fail', stats: { prof: -2, emp: -1, pat: -2, reg: -1, assert: 0 }, feedback: "Interruption. Wait your turn. (-2 Professional, -1 Caring, -2 Patient, -1 Calm)" },
+                    { text: "\"Tell the President hi!\"", nextScene: 'l3_maddie_fail', stats: { prof: 0, emp: 0, pat: 0, reg: -1, assert: 1 }, feedback: "Crazy Cuckoo! Confusing. (-1 Calm, +1 Speaking Up)" },
+                    { text: "\"I'm hungry.\"", nextScene: 'l3_maddie_fail', stats: { prof: 0, emp: 0, pat: -1, reg: 0, assert: 0 }, feedback: "Impatience. (-1 Patient)" }
                 ]
             },
             l3_maddie_success: { id: 'l3_maddie_success', bg: 'from-blue-900 to-slate-900', character: 'maddie', text: "\"Thanks for waiting.\"", speaker: "Maddie", choices: [{ text: "Back to Bunks", nextScene: 'level3_hub' }] },
@@ -427,10 +427,10 @@
                 text: "Eddie is reading.",
                 speaker: "Eddie",
                 choices: [
-                    { text: "\"Can I sit here?\"", nextScene: 'l3_eddie_sit_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Polite Request. Good assertive skills." },
-                    { text: "\"Books are dumb.\"", nextScene: 'l3_eddie_fail', stats: { prof: 0, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Insult. Not nice." },
-                    { text: "*Eat the book pages*", nextScene: 'l3_eddie_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Destructive." },
-                    { text: "\"Whatcha reading?\"", nextScene: 'l3_eddie_book_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Showing interest." }
+                    { text: "\"Can I sit here?\"", nextScene: 'l3_eddie_sit_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Polite Request. Good assertive skills. (+1 Professional, +1 Caring, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"Books are dumb.\"", nextScene: 'l3_eddie_fail', stats: { prof: 0, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Insult. Not nice. (-2 Caring)" },
+                    { text: "*Eat the book pages*", nextScene: 'l3_eddie_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Destructive. (-3 Professional, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"Whatcha reading?\"", nextScene: 'l3_eddie_book_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Showing interest. (+1 Caring)" }
                 ]
             },
             l3_eddie_sit_success: { id: 'l3_eddie_sit_success', bg: 'from-blue-900 to-slate-900', character: 'eddie', text: "\"Sure. Just keep it down.\"", speaker: "Eddie", choices: [{ text: "Back to Bunks", nextScene: 'level3_hub' }] },
@@ -459,10 +459,10 @@
                 text: "\"Hide this cake.\"",
                 speaker: "Athena",
                 choices: [
-                    { text: "*Hide it behind the kale*", nextScene: 'l4_athena_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, flag: 'ate_cake', feedback: "Problem Solving. Assertive & Smart." },
-                    { text: "*Eat the cake now*", nextScene: 'l4_athena_fail', stats: { prof: -2, emp: 0, pat: -2, reg: -2, assert: 0 }, feedback: "Impulse Control. Wait! (-2 Professional)" },
-                    { text: "*Throw the cake!*", nextScene: 'l4_athena_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Messy. (-3 Professional)" },
-                    { text: "\"Okay.\"", nextScene: 'l4_athena_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Compliance. Good." }
+                    { text: "*Hide it behind the kale*", nextScene: 'l4_athena_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, flag: 'ate_cake', feedback: "Problem Solving. Assertive & Smart. (+1 Professional, +1 Caring, +1 Calm, +1 Speaking Up)" },
+                    { text: "*Eat the cake now*", nextScene: 'l4_athena_fail', stats: { prof: -2, emp: 0, pat: -2, reg: -2, assert: 0 }, feedback: "Impulse Control. Wait! (-2 Professional, -2 Patient, -2 Calm)" },
+                    { text: "*Throw the cake!*", nextScene: 'l4_athena_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Messy. (-3 Professional, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"Okay.\"", nextScene: 'l4_athena_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Compliance. Good. (+1 Professional, +1 Patient, +1 Calm)" }
                 ]
             },
             l4_athena_success: { id: 'l4_athena_success', bg: 'from-purple-900 to-slate-900', character: 'athena', text: "\"Good work.\"", speaker: "Athena", choices: [{ text: "Back to Planning", nextScene: 'level4_hub' }] },
@@ -474,10 +474,10 @@
                 text: "\"I want to roar HAPPY BIRTHDAY!\"",
                 speaker: "Buck",
                 choices: [
-                    { text: "\"Wait for the signal.\"", nextScene: 'l4_buck_success', stats: { prof: 1, emp: 0, pat: 2, reg: 1, assert: 1 }, feedback: "Leadership. Helping a friend wait. (+1 Assertive)" },
-                    { text: "\"Do it now!\"", nextScene: 'l4_buck_fail', stats: { prof: 0, emp: -2, pat: -2, reg: 0, assert: 0 }, feedback: "Impatience. Ruined surprise." },
-                    { text: "*Scream at the sun*", nextScene: 'l4_buck_success', stats: { prof: 0, emp: 0, pat: 0, reg: 0, assert: 2 }, feedback: "Crazy Cuckoo! Good redirection." },
-                    { text: "\"Shhhh.\"", nextScene: 'l4_buck_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Regulation." }
+                    { text: "\"Wait for the signal.\"", nextScene: 'l4_buck_success', stats: { prof: 1, emp: 0, pat: 2, reg: 1, assert: 1 }, feedback: "Leadership. Helping a friend wait. (+1 Professional, +2 Patient, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"Do it now!\"", nextScene: 'l4_buck_fail', stats: { prof: 0, emp: -2, pat: -2, reg: 0, assert: 0 }, feedback: "Impatience. Ruined surprise. (-2 Caring, -2 Patient)" },
+                    { text: "*Scream at the sun*", nextScene: 'l4_buck_success', stats: { prof: 0, emp: 0, pat: 0, reg: 0, assert: 2 }, feedback: "Crazy Cuckoo! Good redirection. (+2 Speaking Up)" },
+                    { text: "\"Shhhh.\"", nextScene: 'l4_buck_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Regulation. (+1 Professional, +1 Patient, +1 Calm)" }
                 ]
             },
             l4_buck_success: { id: 'l4_buck_success', bg: 'from-purple-900 to-slate-900', character: 'buck', text: "\"Okay, I'll wait.\"", speaker: "Buck", choices: [{ text: "Back to Planning", nextScene: 'level4_hub' }] },
@@ -489,10 +489,10 @@
                 text: "\"Why is everyone acting strange?\"",
                 speaker: "Bobby",
                 choices: [
-                    { text: "\"Just cleaning!\"", nextScene: 'l4_bobby_success', stats: { prof: 0, emp: 1, pat: 1, reg: 1, assert: 0 }, feedback: "White Lie. Protected the secret. (+1 Empathetic)" },
-                    { text: "\"WE MADE A CAKE!\"", nextScene: 'l4_bobby_fail', stats: { prof: 0, emp: -2, pat: -2, reg: -1, assert: 0 }, feedback: "Blurted out. Failed to wait. (-2 Empathetic)" },
-                    { text: "*Run away screaming*", nextScene: 'l4_bobby_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Suspicious." },
-                    { text: "\"I don't know.\"", nextScene: 'l4_bobby_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Playing dumb works." }
+                    { text: "\"Just cleaning!\"", nextScene: 'l4_bobby_success', stats: { prof: 0, emp: 1, pat: 1, reg: 1, assert: 0 }, feedback: "White Lie. Protected the secret. (+1 Caring, +1 Patient, +1 Calm)" },
+                    { text: "\"WE MADE A CAKE!\"", nextScene: 'l4_bobby_fail', stats: { prof: 0, emp: -2, pat: -2, reg: -1, assert: 0 }, feedback: "Blurted out. Failed to wait. (-2 Caring, -2 Patient, -1 Calm)" },
+                    { text: "*Run away screaming*", nextScene: 'l4_bobby_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Suspicious. (-3 Professional, -2 Calm, +2 Speaking Up)" },
+                    { text: "\"I don't know.\"", nextScene: 'l4_bobby_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Playing dumb works. (+1 Professional, +1 Patient, +1 Calm)" }
                 ]
             },
             l4_bobby_success: { id: 'l4_bobby_success', bg: 'from-purple-900 to-slate-900', character: 'bobby', text: "\"Okay...\"", speaker: "Bobby", choices: [{ text: "Back to Planning", nextScene: 'level4_hub' }] },
@@ -519,10 +519,10 @@
                 text: "\"I miss Pops. The herd isn't the same without him.\"",
                 speaker: "Chimney",
                 choices: [
-                    { text: "\"I know. It's hard.\"", nextScene: 'l5_chimney_success', stats: { prof: 0, emp: 2, pat: 1, reg: 1, assert: 0 }, flag: 'comforted_chimney', feedback: "Validation. Simple words can be powerful." },
-                    { text: "\"I lost a friend once too.\"", nextScene: 'l5_chimney_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Relating. Sharing gently helps connection." },
-                    { text: "*Howl at the moon*", nextScene: 'l5_chimney_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 2 }, feedback: "Crazy Cuckoo... but spiritual? Rituals can help grief." },
-                    { text: "\"Circle of life.\"", nextScene: 'l5_chimney_fail', stats: { prof: 0, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Too clinical. This feels cold in a sad moment. (-2 Empathetic)" }
+                    { text: "\"I know. It's hard.\"", nextScene: 'l5_chimney_success', stats: { prof: 0, emp: 2, pat: 1, reg: 1, assert: 0 }, flag: 'comforted_chimney', feedback: "Validation. Simple words can be powerful. (+2 Caring, +1 Patient, +1 Calm)" },
+                    { text: "\"I lost a friend once too.\"", nextScene: 'l5_chimney_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Relating. Sharing gently helps connection. (+1 Caring)" },
+                    { text: "*Howl at the moon*", nextScene: 'l5_chimney_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 2 }, feedback: "Crazy Cuckoo... but spiritual? Rituals can help grief. (+1 Caring, +2 Speaking Up)" },
+                    { text: "\"Circle of life.\"", nextScene: 'l5_chimney_fail', stats: { prof: 0, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Too clinical. This feels cold in a sad moment. (-2 Caring)" }
                 ]
             },
             l5_chimney_success: { id: 'l5_chimney_success', bg: 'from-orange-900 to-black', character: 'chimney', text: "\"Yeah. Thanks Ayshe.\"", speaker: "Chimney", choices: [{ text: "Back to Roof", nextScene: 'level5_hub' }] },
@@ -534,10 +534,10 @@
                 text: "The Lioness is crying silently, holding a picture of Pops.",
                 speaker: "Athena",
                 choices: [
-                    { text: "*Stand silently nearby*", nextScene: 'l5_athena_success', stats: { prof: 1, emp: 2, pat: 2, reg: 1, assert: 0 }, feedback: "Presence. Silence speaks volumes when someone is sad." },
-                    { text: "\"Stop crying! Be happy!\"", nextScene: 'l5_athena_fail', stats: { prof: -2, emp: -2, pat: -1, reg: 0, assert: 0 }, feedback: "Toxic Positivity. Don't tell people how to feel." },
-                    { text: "\"I fight death!\"", nextScene: 'l5_athena_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 2 }, feedback: "Crazy Cuckoo but supportive. She appreciates the loyalty." },
-                    { text: "*Offer a tissue*", nextScene: 'l5_athena_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Helpful act. Practical support." }
+                    { text: "*Stand silently nearby*", nextScene: 'l5_athena_success', stats: { prof: 1, emp: 2, pat: 2, reg: 1, assert: 0 }, feedback: "Presence. Silence speaks volumes when someone is sad. (+1 Professional, +2 Caring, +2 Patient, +1 Calm)" },
+                    { text: "\"Stop crying! Be happy!\"", nextScene: 'l5_athena_fail', stats: { prof: -2, emp: -2, pat: -1, reg: 0, assert: 0 }, feedback: "Toxic Positivity. Don't tell people how to feel. (-2 Professional, -2 Caring, -1 Patient)" },
+                    { text: "\"I fight death!\"", nextScene: 'l5_athena_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 2 }, feedback: "Crazy Cuckoo but supportive. She appreciates the loyalty. (+1 Caring, +2 Speaking Up)" },
+                    { text: "*Offer a tissue*", nextScene: 'l5_athena_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Helpful act. Practical support. (+1 Caring)" }
                 ]
             },
             l5_athena_success: { id: 'l5_athena_success', bg: 'from-orange-900 to-black', character: 'athena', text: "\"Thanks cub.\"", speaker: "Athena", choices: [{ text: "Back to Roof", nextScene: 'level5_hub' }] },
@@ -561,8 +561,8 @@
                     : "Bobby looks serious. \"A massive storm is hitting us. I need everyone focused.\"",
                 speaker: "Bobby",
                 choices: [
-                    { text: "\"I'm ready, Captain.\"", nextScene: 'level6_hub', stats: { prof: 1, emp: 0, pat: 0, reg: 1, assert: 1 }, feedback: "Professional. Good confident response." },
-                    { text: "\"I'm scared of thunder!\"", nextScene: 'level6_hub', stats: { prof: -1, emp: 0, pat: 0, reg: -1, assert: 0 }, feedback: "Vulnerable, but take a breath first." }
+                    { text: "\"I'm ready, Captain.\"", nextScene: 'level6_hub', stats: { prof: 1, emp: 0, pat: 0, reg: 1, assert: 1 }, feedback: "Professional. Good confident response. (+1 Professional, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"I'm scared of thunder!\"", nextScene: 'level6_hub', stats: { prof: -1, emp: 0, pat: 0, reg: -1, assert: 0 }, feedback: "Vulnerable, but take a breath first. (-1 Professional, -1 Calm)" }
                 ]
             },
             level6_hub: {
@@ -586,9 +586,9 @@
                     : "Athena nods. \"Good work yesterday. Keep stacking those bags.\"",
                 speaker: "Athena",
                 choices: [
-                    { text: "\"I won't touch them, I promise.\"", nextScene: 'l6_athena_success', stats: { prof: 1, emp: 0, pat: 0, reg: 1, assert: 0 }, feedback: "Reassurance. Rebuilding trust." },
-                    { text: "\"Maybe...\"", nextScene: 'l6_athena_fail', stats: { prof: -1, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Evasive. Not professional." },
-                    { text: "*Salute* \"Yes Ma'am!\"", nextScene: 'l6_athena_success', stats: { prof: 1, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Respectful." }
+                    { text: "\"I won't touch them, I promise.\"", nextScene: 'l6_athena_success', stats: { prof: 1, emp: 0, pat: 0, reg: 1, assert: 0 }, feedback: "Reassurance. Rebuilding trust. (+1 Professional, +1 Calm)" },
+                    { text: "\"Maybe...\"", nextScene: 'l6_athena_fail', stats: { prof: -1, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Evasive. Not professional. (-1 Professional)" },
+                    { text: "*Salute* \"Yes Ma'am!\"", nextScene: 'l6_athena_success', stats: { prof: 1, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Respectful. (+1 Professional)" }
                 ]
             },
             l6_athena_success: { id: 'l6_athena_success', bg: 'from-slate-700 to-slate-600', character: 'athena', text: "\"Good. Get to work.\"", speaker: "Athena", choices: [{ text: "Return", nextScene: 'level6_hub' }] },
@@ -600,9 +600,9 @@
                 text: "Buck is throwing sandbags aggressively. \"This storm is going to ruin everything!\"",
                 speaker: "Buck",
                 choices: [
-                    { text: "\"We can handle it together.\"", nextScene: 'l6_buck_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Teamwork. Calming." },
-                    { text: "*Join in and throw bags angrily*", nextScene: 'l6_buck_fail', stats: { prof: -1, emp: 0, pat: 0, reg: -2, assert: 0 }, feedback: "Dysregulation. Feeding the chaos." },
-                    { text: "\"Use your knees!\"", nextScene: 'l6_buck_success', stats: { prof: 1, emp: 0, pat: 0, reg: 0, assert: 1 }, feedback: "Practical Advice. Assertive." }
+                    { text: "\"We can handle it together.\"", nextScene: 'l6_buck_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Teamwork. Calming. (+1 Professional, +1 Caring, +1 Calm)" },
+                    { text: "*Join in and throw bags angrily*", nextScene: 'l6_buck_fail', stats: { prof: -1, emp: 0, pat: 0, reg: -2, assert: 0 }, feedback: "Dysregulation. Feeding the chaos. (-1 Professional, -2 Calm)" },
+                    { text: "\"Use your knees!\"", nextScene: 'l6_buck_success', stats: { prof: 1, emp: 0, pat: 0, reg: 0, assert: 1 }, feedback: "Practical Advice. Assertive. (+1 Professional, +1 Speaking Up)" }
                 ]
             },
             l6_buck_success: { id: 'l6_buck_success', bg: 'from-slate-700 to-slate-600', character: 'buck', text: "\"Yeah... you're right.\"", speaker: "Buck", choices: [{ text: "Return", nextScene: 'level6_hub' }] },
@@ -616,9 +616,9 @@
                 text: "CHAPTER 7: The Flood. A victim is panicked on a roof. Bobby shouts orders.",
                 speaker: "Bobby",
                 choices: [
-                    { text: "*Calm the victim down*", nextScene: 'level7_success', stats: { prof: 1, emp: 2, pat: 1, reg: 1, assert: 0 }, feedback: "Regulation co-regulation. Vital in crisis." },
-                    { text: "*Yell at them to jump*", nextScene: 'level7_fail', stats: { prof: -1, emp: -2, pat: -1, reg: -1, assert: 1 }, feedback: "Too Aggressive. Scared them." },
-                    { text: "*Jump in the water yourself*", nextScene: 'level7_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Unsafe without orders." }
+                    { text: "*Calm the victim down*", nextScene: 'level7_success', stats: { prof: 1, emp: 2, pat: 1, reg: 1, assert: 0 }, feedback: "Regulation co-regulation. Vital in crisis. (+1 Professional, +2 Caring, +1 Patient, +1 Calm)" },
+                    { text: "*Yell at them to jump*", nextScene: 'level7_fail', stats: { prof: -1, emp: -2, pat: -1, reg: -1, assert: 1 }, feedback: "Too Aggressive. Scared them. (-1 Professional, -2 Caring, -1 Patient, -1 Calm, +1 Speaking Up)" },
+                    { text: "*Jump in the water yourself*", nextScene: 'level7_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Unsafe without orders. (-2 Professional, -2 Calm, +2 Speaking Up)" }
                 ]
             },
             level7_success: { id: 'level7_success', bg: 'from-blue-900 to-slate-900', character: 'bobby', text: "\"Great work de-escalating, Ayshe.\"", speaker: "Bobby", choices: [{ text: "Next Chapter", nextScene: 'level8_hub' }] },
@@ -643,9 +643,9 @@
                 text: "Hen and Chimney are arguing over a flashlight. \"I had it first!\"",
                 speaker: "Hen & Chimney",
                 choices: [
-                    { text: "\"We can share it.\"", nextScene: 'l8_conflict_success', stats: { prof: 1, emp: 1, pat: 1, reg: 1, assert: 1 }, feedback: "Mediation. Finding a middle ground." },
-                    { text: "\"Stop fighting like babies!\"", nextScene: 'l8_conflict_fail', stats: { prof: -1, emp: -1, pat: 0, reg: -1, assert: 1 }, feedback: "Judgmental. Escalates conflict." },
-                    { text: "*Steal the flashlight*", nextScene: 'l8_conflict_fail', stats: { prof: -2, emp: -1, pat: 0, reg: -1, assert: 2 }, feedback: "Crazy Cuckoo! Not helpful." }
+                    { text: "\"We can share it.\"", nextScene: 'l8_conflict_success', stats: { prof: 1, emp: 1, pat: 1, reg: 1, assert: 1 }, feedback: "Mediation. Finding a middle ground. (+1 Professional, +1 Caring, +1 Patient, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"Stop fighting like babies!\"", nextScene: 'l8_conflict_fail', stats: { prof: -1, emp: -1, pat: 0, reg: -1, assert: 1 }, feedback: "Judgmental. Escalates conflict. (-1 Professional, -1 Caring, -1 Calm, +1 Speaking Up)" },
+                    { text: "*Steal the flashlight*", nextScene: 'l8_conflict_fail', stats: { prof: -2, emp: -1, pat: 0, reg: -1, assert: 2 }, feedback: "Crazy Cuckoo! Not helpful. (-2 Professional, -1 Caring, -1 Calm, +2 Speaking Up)" }
                 ]
             },
             l8_conflict_success: { id: 'l8_conflict_success', bg: 'from-gray-900 to-black', character: 'hen', text: "\"Fine. You're right.\"", speaker: "Hen", choices: [{ text: "Return", nextScene: 'level8_hub' }] },
@@ -657,8 +657,8 @@
                 text: "Eddie is sitting in the dark, meditating.",
                 speaker: "Eddie",
                 choices: [
-                    { text: "*Join him silently*", nextScene: 'l8_eddie_success', stats: { prof: 0, emp: 1, pat: 2, reg: 2, assert: 0 }, feedback: "Parallel Play. Respecting his vibe." },
-                    { text: "\"It's too dark!\"", nextScene: 'l8_eddie_fail', stats: { prof: 0, emp: 0, pat: -1, reg: -1, assert: 0 }, feedback: "Complaining." }
+                    { text: "*Join him silently*", nextScene: 'l8_eddie_success', stats: { prof: 0, emp: 1, pat: 2, reg: 2, assert: 0 }, feedback: "Parallel Play. Respecting his vibe. (+1 Caring, +2 Patient, +2 Calm)" },
+                    { text: "\"It's too dark!\"", nextScene: 'l8_eddie_fail', stats: { prof: 0, emp: 0, pat: -1, reg: -1, assert: 0 }, feedback: "Complaining. (-1 Patient, -1 Calm)" }
                 ]
             },
             l8_eddie_success: { id: 'l8_eddie_success', bg: 'from-gray-900 to-black', character: 'eddie', text: "\"...Peaceful, isn't it?\"", speaker: "Eddie", choices: [{ text: "Return", nextScene: 'level8_hub' }] },
@@ -685,9 +685,9 @@
                 text: "Buck is scrubbing the floor aggressively. He's covered in mud.",
                 speaker: "Buck",
                 choices: [
-                    { text: "*Grab a mop silently*", nextScene: 'l9_buck_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Helping. Actions speak louder than words." },
-                    { text: "\"You missed a spot.\"", nextScene: 'l9_buck_fail', stats: { prof: -1, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Criticism. Not helpful when he's working hard." },
-                    { text: "*Throw mud at him*", nextScene: 'l9_buck_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 1 }, feedback: "Crazy Cuckoo! Now you have to clean more." }
+                    { text: "*Grab a mop silently*", nextScene: 'l9_buck_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Helping. Actions speak louder than words. (+1 Professional, +1 Caring, +1 Calm)" },
+                    { text: "\"You missed a spot.\"", nextScene: 'l9_buck_fail', stats: { prof: -1, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Criticism. Not helpful when he's working hard. (-1 Professional, -2 Caring)" },
+                    { text: "*Throw mud at him*", nextScene: 'l9_buck_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 1 }, feedback: "Crazy Cuckoo! Now you have to clean more. (-2 Professional, -2 Calm, +1 Speaking Up)" }
                 ]
             },
             l9_buck_success: { id: 'l9_buck_success', bg: 'from-slate-800 to-slate-900', character: 'buck', text: "\"Thanks partner. This mud is stubborn.\"", speaker: "Buck", choices: [{ text: "Return", nextScene: 'level9_hub' }] },
@@ -699,8 +699,8 @@
                 text: "Athena finds a muddy footprint. \"Who tracked this in?!\"",
                 speaker: "Athena",
                 choices: [
-                    { text: "\"I'll clean it up.\"", nextScene: 'l9_athena_success', stats: { prof: 1, emp: 0, pat: 0, reg: 1, assert: 1 }, feedback: "Taking Responsibility. Professional." },
-                    { text: "\"It was Buck!\"", nextScene: 'l9_athena_fail', stats: { prof: -1, emp: -1, pat: 0, reg: 0, assert: 0 }, feedback: "Blaming. Throwing teammates under the bus is bad." }
+                    { text: "\"I'll clean it up.\"", nextScene: 'l9_athena_success', stats: { prof: 1, emp: 0, pat: 0, reg: 1, assert: 1 }, feedback: "Taking Responsibility. Professional. (+1 Professional, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"It was Buck!\"", nextScene: 'l9_athena_fail', stats: { prof: -1, emp: -1, pat: 0, reg: 0, assert: 0 }, feedback: "Blaming. Throwing teammates under the bus is bad. (-1 Professional, -1 Caring)" }
                 ]
             },
             l9_athena_success: { id: 'l9_athena_success', bg: 'from-slate-800 to-slate-900', character: 'athena', text: "\"Good initiative.\"", speaker: "Athena", choices: [{ text: "Return", nextScene: 'level9_hub' }] },
@@ -715,9 +715,9 @@
                 text: "CHAPTER 10: Exhaustion. Eddie is staring blankly at his locker.",
                 speaker: "Eddie",
                 choices: [
-                    { text: "\"Go home, Eddie.\"", nextScene: 'level10_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 1 }, feedback: "Directive Care. Sometimes people need permission to rest." },
-                    { text: "\"I'm tired too.\"", nextScene: 'level10_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Shared Feeling. Validating." },
-                    { text: "*Slam locker shut*", nextScene: 'level10_fail', stats: { prof: 0, emp: -1, pat: 0, reg: -2, assert: 0 }, feedback: "Startling. He is too tired for noise." }
+                    { text: "\"Go home, Eddie.\"", nextScene: 'level10_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 1 }, feedback: "Directive Care. Sometimes people need permission to rest. (+1 Caring, +1 Speaking Up)" },
+                    { text: "\"I'm tired too.\"", nextScene: 'level10_success', stats: { prof: 0, emp: 1, pat: 0, reg: 0, assert: 0 }, feedback: "Shared Feeling. Validating. (+1 Caring)" },
+                    { text: "*Slam locker shut*", nextScene: 'level10_fail', stats: { prof: 0, emp: -1, pat: 0, reg: -2, assert: 0 }, feedback: "Startling. He is too tired for noise. (-1 Caring, -2 Calm)" }
                 ]
             },
             level10_success: { id: 'level10_success', bg: 'from-slate-900 to-black', character: 'eddie', text: "\"Yeah. Goodnight Ayshe.\"", speaker: "Eddie", choices: [{ text: "End Day 2", nextScene: 'day3_start' }] },
@@ -751,9 +751,9 @@
                 text: "Bobby is staring at the broken coffee machine.",
                 speaker: "Bobby",
                 choices: [
-                    { text: "\"I'll make a tea run.\"", nextScene: 'l11_bobby_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Solution Oriented. Helping the whole team." },
-                    { text: "\"Fix it yourself!\"", nextScene: 'l11_bobby_fail', stats: { prof: -2, emp: -1, pat: 0, reg: -1, assert: 1 }, feedback: "Disrespectful. Everyone is stressed." },
-                    { text: "*Kick the machine*", nextScene: 'l11_bobby_fail', stats: { prof: -2, emp: 0, pat: -1, reg: -2, assert: 0 }, feedback: "Crazy Cuckoo! Violence isn't the answer." }
+                    { text: "\"I'll make a tea run.\"", nextScene: 'l11_bobby_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Solution Oriented. Helping the whole team. (+1 Professional, +1 Caring, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"Fix it yourself!\"", nextScene: 'l11_bobby_fail', stats: { prof: -2, emp: -1, pat: 0, reg: -1, assert: 1 }, feedback: "Disrespectful. Everyone is stressed. (-2 Professional, -1 Caring, -1 Calm, +1 Speaking Up)" },
+                    { text: "*Kick the machine*", nextScene: 'l11_bobby_fail', stats: { prof: -2, emp: 0, pat: -1, reg: -2, assert: 0 }, feedback: "Crazy Cuckoo! Violence isn't the answer. (-2 Professional, -1 Patient, -2 Calm)" }
                 ]
             },
             l11_bobby_success: { id: 'l11_bobby_success', bg: 'from-slate-200 to-white', character: 'bobby', text: "\"You are a lifesaver.\"", speaker: "Bobby", choices: [{ text: "Return", nextScene: 'level11_hub' }] },
@@ -765,8 +765,8 @@
                 text: "Hen is rubbing her long neck. \"I slept on a rock.\"",
                 speaker: "Hen",
                 choices: [
-                    { text: "*Offer heat pack*", nextScene: 'l11_hen_success', stats: { prof: 0, emp: 2, pat: 0, reg: 0, assert: 0 }, feedback: "Care. Small gestures matter." },
-                    { text: "\"My back hurts too!\"", nextScene: 'l11_hen_fail', stats: { prof: 0, emp: -1, pat: 0, reg: 0, assert: 0 }, feedback: "One-upping. Validate her pain first." }
+                    { text: "*Offer heat pack*", nextScene: 'l11_hen_success', stats: { prof: 0, emp: 2, pat: 0, reg: 0, assert: 0 }, feedback: "Care. Small gestures matter. (+2 Caring)" },
+                    { text: "\"My back hurts too!\"", nextScene: 'l11_hen_fail', stats: { prof: 0, emp: -1, pat: 0, reg: 0, assert: 0 }, feedback: "One-upping. Validate her pain first. (-1 Caring)" }
                 ]
             },
             l11_hen_success: { id: 'l11_hen_success', bg: 'from-slate-200 to-white', character: 'hen', text: "\"Oh, that's better.\"", speaker: "Hen", choices: [{ text: "Return", nextScene: 'level11_hub' }] },
@@ -779,9 +779,9 @@
                 text: "CHAPTER 12: The Media. A Hyena Reporter with a camera approaches. \"Did Captain Bobby fail?!\"",
                 speaker: "Reporter",
                 choices: [
-                    { text: "\"No comment.\"", nextScene: 'level12_success', stats: { prof: 2, emp: 0, pat: 1, reg: 1, assert: 1 }, feedback: "Professional. Safe answer." },
-                    { text: "\"He almost dropped the guy!\"", nextScene: 'level12_fail', stats: { prof: -3, emp: -2, pat: 0, reg: -1, assert: 0 }, feedback: "Betrayal! Never gossip to press." },
-                    { text: "\"It was a team effort.\"", nextScene: 'level12_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Diplomatic. Protects the team." }
+                    { text: "\"No comment.\"", nextScene: 'level12_success', stats: { prof: 2, emp: 0, pat: 1, reg: 1, assert: 1 }, feedback: "Professional. Safe answer. (+2 Professional, +1 Patient, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"He almost dropped the guy!\"", nextScene: 'level12_fail', stats: { prof: -3, emp: -2, pat: 0, reg: -1, assert: 0 }, feedback: "Betrayal! Never gossip to press. (-3 Professional, -2 Caring, -1 Calm)" },
+                    { text: "\"It was a team effort.\"", nextScene: 'level12_success', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Diplomatic. Protects the team. (+1 Professional, +1 Caring, +1 Calm, +1 Speaking Up)" }
                 ]
             },
             level12_success: { id: 'level12_success', bg: 'from-blue-200 to-white', character: 'chimney', text: "(The reporter leaves disappointed)", speaker: "Narrator", choices: [{ text: "Next Chapter", nextScene: 'level13_hub' }] },
@@ -806,8 +806,8 @@
                 text: "Athena is barking orders at citizens. \"Single file line!\"",
                 speaker: "Athena",
                 choices: [
-                    { text: "*Help organize silently*", nextScene: 'l13_athena_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Supportive. Helping her goal." },
-                    { text: "\"You're scaring them.\"", nextScene: 'l13_athena_fail', stats: { prof: -1, emp: 1, pat: 0, reg: 0, assert: 1 }, feedback: "Critique. You might be right, but be careful." }
+                    { text: "*Help organize silently*", nextScene: 'l13_athena_success', stats: { prof: 1, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Supportive. Helping her goal. (+1 Professional, +1 Patient, +1 Calm)" },
+                    { text: "\"You're scaring them.\"", nextScene: 'l13_athena_fail', stats: { prof: -1, emp: 1, pat: 0, reg: 0, assert: 1 }, feedback: "Critique. You might be right, but be careful. (-1 Professional, +1 Caring, +1 Speaking Up)" }
                 ]
             },
             l13_athena_success: { id: 'l13_athena_success', bg: 'from-orange-100 to-white', character: 'athena', text: "\"Keep them moving.\"", speaker: "Athena", choices: [{ text: "Return", nextScene: 'level13_hub' }] },
@@ -821,8 +821,8 @@
                     : "Chimney is juggling water bottles. The kids love it.",
                 speaker: "Chimney",
                 choices: [
-                    { text: "*Cheer him on*", nextScene: 'l13_chimney_success', stats: { prof: 0, emp: 2, pat: 0, reg: 0, assert: 0 }, feedback: "Encouragement. Boosting morale." },
-                    { text: "\"Focus on work!\"", nextScene: 'l13_chimney_fail', stats: { prof: 1, emp: -1, pat: 0, reg: 0, assert: 1 }, feedback: "Buzzkill. Morale is work too." }
+                    { text: "*Cheer him on*", nextScene: 'l13_chimney_success', stats: { prof: 0, emp: 2, pat: 0, reg: 0, assert: 0 }, feedback: "Encouragement. Boosting morale. (+2 Caring)" },
+                    { text: "\"Focus on work!\"", nextScene: 'l13_chimney_fail', stats: { prof: 1, emp: -1, pat: 0, reg: 0, assert: 1 }, feedback: "Buzzkill. Morale is work too. (+1 Professional, -1 Caring, +1 Speaking Up)" }
                 ]
             },
             l13_chimney_success: { id: 'l13_chimney_success', bg: 'from-orange-100 to-white', character: 'chimney', text: "\"Ta-da!\"", speaker: "Chimney", choices: [{ text: "Return", nextScene: 'level13_hub' }] },
@@ -835,9 +835,9 @@
                 text: "CHAPTER 14: Burnout. Maddie is crying on the phone in the bunks.",
                 speaker: "Maddie",
                 choices: [
-                    { text: "*Close door gently*", nextScene: 'level14_success', stats: { prof: 1, emp: 2, pat: 1, reg: 1, assert: 0 }, feedback: "Privacy. Respecting her space is empathetic." },
-                    { text: "\"What's wrong now?\"", nextScene: 'level14_fail', stats: { prof: 0, emp: -2, pat: -1, reg: 0, assert: 0 }, feedback: "Impatient. She needs space, not questions." },
-                    { text: "*Start singing loudly*", nextScene: 'level14_fail', stats: { prof: -2, emp: -2, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Inappropriate." }
+                    { text: "*Close door gently*", nextScene: 'level14_success', stats: { prof: 1, emp: 2, pat: 1, reg: 1, assert: 0 }, feedback: "Privacy. Respecting her space is empathetic. (+1 Professional, +2 Caring, +1 Patient, +1 Calm)" },
+                    { text: "\"What's wrong now?\"", nextScene: 'level14_fail', stats: { prof: 0, emp: -2, pat: -1, reg: 0, assert: 0 }, feedback: "Impatient. She needs space, not questions. (-2 Caring, -1 Patient)" },
+                    { text: "*Start singing loudly*", nextScene: 'level14_fail', stats: { prof: -2, emp: -2, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Inappropriate. (-2 Professional, -2 Caring, -2 Calm, +2 Speaking Up)" }
                 ]
             },
             level14_success: { id: 'level14_success', bg: 'from-indigo-900 to-black', character: 'maddie', text: "(She nods thanks)", speaker: "Narrator", choices: [{ text: "Next Chapter", nextScene: 'level15_scene' }] },
@@ -850,9 +850,9 @@
                 text: "CHAPTER 15: The Ceremony. The Mayor is giving medals. \"And the hero of the storm is... Buck!\"",
                 speaker: "Mayor",
                 choices: [
-                    { text: "*Clap loudly*", nextScene: 'day4_start', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Sportsmanship. Celebrating others." },
-                    { text: "\"What about me?!\"", nextScene: 'day4_start', stats: { prof: -2, emp: -1, pat: -1, reg: -2, assert: 1 }, feedback: "Jealousy. Not the time." },
-                    { text: "*Steal the medal*", nextScene: 'day4_start', stats: { prof: -3, emp: 0, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! You can't steal glory." }
+                    { text: "*Clap loudly*", nextScene: 'day4_start', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 0 }, feedback: "Sportsmanship. Celebrating others. (+1 Professional, +1 Caring, +1 Calm)" },
+                    { text: "\"What about me?!\"", nextScene: 'day4_start', stats: { prof: -2, emp: -1, pat: -1, reg: -2, assert: 1 }, feedback: "Jealousy. Not the time. (-2 Professional, -1 Caring, -1 Patient, -2 Calm, +1 Speaking Up)" },
+                    { text: "*Steal the medal*", nextScene: 'day4_start', stats: { prof: -3, emp: 0, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! You can't steal glory. (-3 Professional, -3 Calm, +2 Speaking Up)" }
                 ]
             },
 
@@ -872,9 +872,9 @@
                 text: "CHAPTER 16: Uniform Inspection. Bobby is checking buttons.",
                 speaker: "Bobby",
                 choices: [
-                    { text: "*Stand up straight*", nextScene: 'level16_success', stats: { prof: 2, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Acting like a pro. Good job." },
-                    { text: "\"This shirt is itchy!\"", nextScene: 'level16_fail', stats: { prof: -1, emp: 0, pat: -1, reg: -1, assert: 0 }, feedback: "Complaining at work. Not professional." },
-                    { text: "*Wear pants on head*", nextScene: 'level16_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! That is not the uniform!" }
+                    { text: "*Stand up straight*", nextScene: 'level16_success', stats: { prof: 2, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Acting like a pro. Good job. (+2 Professional, +1 Patient, +1 Calm)" },
+                    { text: "\"This shirt is itchy!\"", nextScene: 'level16_fail', stats: { prof: -1, emp: 0, pat: -1, reg: -1, assert: 0 }, feedback: "Complaining at work. Not professional. (-1 Professional, -1 Patient, -1 Calm)" },
+                    { text: "*Wear pants on head*", nextScene: 'level16_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! That is not the uniform! (-3 Professional, -2 Calm, +2 Speaking Up)" }
                 ]
             },
             level16_success: { id: 'level16_success', bg: 'from-blue-100 to-white', character: 'bobby', text: "\"Looking sharp, Ayshe.\"", speaker: "Bobby", choices: [{ text: "Next Chapter", nextScene: 'level17_scene' }] },
@@ -887,9 +887,9 @@
                 text: "CHAPTER 17: Float Decoration. Hen wants flowers. Chimney wants sirens.",
                 speaker: "Hen & Chimney",
                 choices: [
-                    { text: "\"Let's use both!\"", nextScene: 'level17_success', stats: { prof: 1, emp: 2, pat: 0, reg: 0, assert: 1 }, feedback: "Helping friends agree. Great teamwork!" },
-                    { text: "\"Sirens are cooler!\"", nextScene: 'level17_fail', stats: { prof: 0, emp: -1, pat: 0, reg: 0, assert: 1 }, feedback: "Taking sides. Now Hen is sad." },
-                    { text: "*Eat the flowers*", nextScene: 'level17_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 0 }, feedback: "Crazy Cuckoo! Those are for the float!" }
+                    { text: "\"Let's use both!\"", nextScene: 'level17_success', stats: { prof: 1, emp: 2, pat: 0, reg: 0, assert: 1 }, feedback: "Helping friends agree. Great teamwork! (+1 Professional, +2 Caring, +1 Speaking Up)" },
+                    { text: "\"Sirens are cooler!\"", nextScene: 'level17_fail', stats: { prof: 0, emp: -1, pat: 0, reg: 0, assert: 1 }, feedback: "Taking sides. Now Hen is sad. (-1 Caring, +1 Speaking Up)" },
+                    { text: "*Eat the flowers*", nextScene: 'level17_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 0 }, feedback: "Crazy Cuckoo! Those are for the float! (-2 Professional, -2 Calm)" }
                 ]
             },
             level17_success: { id: 'level17_success', bg: 'from-pink-100 to-white', character: 'hen', text: "\"Good idea! Flower sirens!\"", speaker: "Hen", choices: [{ text: "Next Chapter", nextScene: 'level18_scene' }] },
@@ -902,9 +902,9 @@
                 text: "CHAPTER 18: The Crowd. Thousands of animals are cheering loudly. It is VERY loud.",
                 speaker: "The Crowd",
                 choices: [
-                    { text: "*Wave and smile*", nextScene: 'level18_success', stats: { prof: 1, emp: 1, pat: 1, reg: 2, assert: 0 }, feedback: "Staying calm. Good job managing the noise." },
-                    { text: "*Cover ears and scream*", nextScene: 'level18_fail', stats: { prof: -1, emp: 0, pat: 0, reg: -2, assert: 0 }, feedback: "Losing control. The crowd gets scared." },
-                    { text: "*Jump into the crowd*", nextScene: 'level18_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Stay on the float!" }
+                    { text: "*Wave and smile*", nextScene: 'level18_success', stats: { prof: 1, emp: 1, pat: 1, reg: 2, assert: 0 }, feedback: "Staying calm. Good job managing the noise. (+1 Professional, +1 Caring, +1 Patient, +2 Calm)" },
+                    { text: "*Cover ears and scream*", nextScene: 'level18_fail', stats: { prof: -1, emp: 0, pat: 0, reg: -2, assert: 0 }, feedback: "Losing control. The crowd gets scared. (-1 Professional, -2 Calm)" },
+                    { text: "*Jump into the crowd*", nextScene: 'level18_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! Stay on the float! (-2 Professional, -2 Calm, +2 Speaking Up)" }
                 ]
             },
             level18_success: { id: 'level18_success', bg: 'from-yellow-400 to-orange-500', character: 'buck', text: "\"They love us!\"", speaker: "Buck", choices: [{ text: "Next Chapter", nextScene: 'level19_scene' }] },
@@ -917,9 +917,9 @@
                 text: "CHAPTER 19: Lost Cub. A baby zebra is crying alone.",
                 speaker: "Lost Zebra",
                 choices: [
-                    { text: "\"Are you lost? I can help.\"", nextScene: 'level19_success', stats: { prof: 1, emp: 3, pat: 1, reg: 1, assert: 1 }, feedback: "Super caring! You are safe and helpful." },
-                    { text: "\"Where is your mom?!\"", nextScene: 'level19_fail', stats: { prof: 0, emp: -1, pat: -1, reg: 0, assert: 0 }, feedback: "Too loud. You scared the baby." },
-                    { text: "*Walk away*", nextScene: 'level19_fail', stats: { prof: -2, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Ignoring help. Not a hero move." }
+                    { text: "\"Are you lost? I can help.\"", nextScene: 'level19_success', stats: { prof: 1, emp: 3, pat: 1, reg: 1, assert: 1 }, feedback: "Super caring! You are safe and helpful. (+1 Professional, +3 Caring, +1 Patient, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"Where is your mom?!\"", nextScene: 'level19_fail', stats: { prof: 0, emp: -1, pat: -1, reg: 0, assert: 0 }, feedback: "Too loud. You scared the baby. (-1 Caring, -1 Patient)" },
+                    { text: "*Walk away*", nextScene: 'level19_fail', stats: { prof: -2, emp: -2, pat: 0, reg: 0, assert: 0 }, feedback: "Ignoring help. Not a hero move. (-2 Professional, -2 Caring)" }
                 ]
             },
             level19_success: { id: 'level19_success', bg: 'from-gray-200 to-white', character: 'athena', text: "\"Good eye, Ayshe. We found the mom.\"", speaker: "Athena", choices: [{ text: "Next Chapter", nextScene: 'level20_scene' }] },
@@ -932,9 +932,9 @@
                 text: "CHAPTER 20: The Fireworks. The day ends with a beautiful show.",
                 speaker: "Bobby",
                 choices: [
-                    { text: "\"Great job everyone!\"", nextScene: 'day5_start', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Positive ending. Celebrating the team." },
-                    { text: "\"I'm tired. Going home.\"", nextScene: 'day5_start', stats: { prof: 0, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Honest, but a bit abrupt." },
-                    { text: "*Try to catch a firework*", nextScene: 'day5_start', stats: { prof: -3, emp: 0, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! Extremely dangerous!" }
+                    { text: "\"Great job everyone!\"", nextScene: 'day5_start', stats: { prof: 1, emp: 1, pat: 0, reg: 1, assert: 1 }, feedback: "Positive ending. Celebrating the team. (+1 Professional, +1 Caring, +1 Calm, +1 Speaking Up)" },
+                    { text: "\"I'm tired. Going home.\"", nextScene: 'day5_start', stats: { prof: 0, emp: 0, pat: 0, reg: 0, assert: 0 }, feedback: "Honest, but a bit abrupt. (No stat changes)" },
+                    { text: "*Try to catch a firework*", nextScene: 'day5_start', stats: { prof: -3, emp: 0, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! Extremely dangerous! (-3 Professional, -3 Calm, +2 Speaking Up)" }
                 ]
             },
 
@@ -954,9 +954,9 @@
                 text: "CHAPTER 21: Evacuation. A civilian refuses to leave their home. The fire is close.",
                 speaker: "Civilian",
                 choices: [
-                    { text: "\"We leave in 2 minutes, with or without you.\"", nextScene: 'level21_success', stats: { prof: 2, emp: -1, pat: 0, reg: 1, assert: 2 }, feedback: "Hard Truth. Sometimes safety > politeness." },
-                    { text: "\"Please, it's not safe!\"", nextScene: 'level21_fail', stats: { prof: 0, emp: 1, pat: 1, reg: -1, assert: -1 }, feedback: "Too soft. We don't have time to beg." },
-                    { text: "*Throw them in the truck*", nextScene: 'level21_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! You can't kidnap people!" }
+                    { text: "\"We leave in 2 minutes, with or without you.\"", nextScene: 'level21_success', stats: { prof: 2, emp: -1, pat: 0, reg: 1, assert: 2 }, feedback: "Hard Truth. Sometimes safety > politeness. (+2 Professional, -1 Caring, +1 Calm, +2 Speaking Up)" },
+                    { text: "\"Please, it's not safe!\"", nextScene: 'level21_fail', stats: { prof: 0, emp: 1, pat: 1, reg: -1, assert: -1 }, feedback: "Too soft. We don't have time to beg. (+1 Caring, +1 Patient, -1 Calm, -1 Speaking Up)" },
+                    { text: "*Throw them in the truck*", nextScene: 'level21_fail', stats: { prof: -2, emp: 0, pat: 0, reg: -2, assert: 2 }, feedback: "Crazy Cuckoo! You can't kidnap people! (-2 Professional, -2 Calm, +2 Speaking Up)" }
                 ]
             },
             level21_success: { id: 'level21_success', bg: 'from-orange-600 to-red-900', character: 'bobby', text: "\"They're moving! Good firmness, Ayshe.\"", speaker: "Bobby", choices: [{ text: "Next Chapter", nextScene: 'level22_hub' }] },
@@ -981,9 +981,9 @@
                 text: "\"There's not enough water! We're gonna fail!\"",
                 speaker: "Buck",
                 choices: [
-                    { text: "\"Share my ration with him.\"", nextScene: 'l22_buck_success', stats: { prof: 1, emp: 2, pat: 0, reg: 0, assert: 0 }, feedback: "Sacrifice. Very noble." },
-                    { text: "\"Pull it together, soldier!\"", nextScene: 'l22_buck_fail', stats: { prof: 1, emp: -1, pat: -1, reg: 0, assert: 1 }, feedback: "Too harsh. He needs support, not orders." },
-                    { text: "*Drink all the water*", nextScene: 'l22_buck_fail', stats: { prof: -2, emp: -2, pat: 0, reg: -1, assert: 0 }, feedback: "Selfish! Not a team player." }
+                    { text: "\"Share my ration with him.\"", nextScene: 'l22_buck_success', stats: { prof: 1, emp: 2, pat: 0, reg: 0, assert: 0 }, feedback: "Sacrifice. Very noble. (+1 Professional, +2 Caring)" },
+                    { text: "\"Pull it together, soldier!\"", nextScene: 'l22_buck_fail', stats: { prof: 1, emp: -1, pat: -1, reg: 0, assert: 1 }, feedback: "Too harsh. He needs support, not orders. (+1 Professional, -1 Caring, -1 Patient, +1 Speaking Up)" },
+                    { text: "*Drink all the water*", nextScene: 'l22_buck_fail', stats: { prof: -2, emp: -2, pat: 0, reg: -1, assert: 0 }, feedback: "Selfish! Not a team player. (-2 Professional, -2 Caring, -1 Calm)" }
                 ]
             },
             l22_buck_success: { id: 'l22_buck_success', bg: 'from-red-900 to-black', character: 'buck', text: "\"Thanks... I needed that.\"", speaker: "Buck", choices: [{ text: "Return", nextScene: 'level22_hub' }] },
@@ -995,8 +995,8 @@
                 text: "Eddie is digging a trench alone. He looks ready to collapse.",
                 speaker: "Eddie",
                 choices: [
-                    { text: "\"Take a break, I'll dig.\"", nextScene: 'l22_eddie_success', stats: { prof: 1, emp: 2, pat: 0, reg: 0, assert: 1 }, feedback: "Stepping up. Giving him relief." },
-                    { text: "\"Dig faster!\"", nextScene: 'l22_eddie_fail', stats: { prof: 0, emp: -2, pat: -1, reg: 0, assert: 0 }, feedback: "Cruel. He is at his limit." }
+                    { text: "\"Take a break, I'll dig.\"", nextScene: 'l22_eddie_success', stats: { prof: 1, emp: 2, pat: 0, reg: 0, assert: 1 }, feedback: "Stepping up. Giving him relief. (+1 Professional, +2 Caring, +1 Speaking Up)" },
+                    { text: "\"Dig faster!\"", nextScene: 'l22_eddie_fail', stats: { prof: 0, emp: -2, pat: -1, reg: 0, assert: 0 }, feedback: "Cruel. He is at his limit. (-2 Caring, -1 Patient)" }
                 ]
             },
             l22_eddie_success: { id: 'l22_eddie_success', bg: 'from-red-900 to-black', character: 'eddie', text: "(He collapses in gratitude)", speaker: "Eddie", choices: [{ text: "Return", nextScene: 'level22_hub' }] },
@@ -1009,9 +1009,9 @@
                 text: "CHAPTER 23: The Injury. Chimney twisted his ankle but wants to keep working.",
                 speaker: "Chimney",
                 choices: [
-                    { text: "\"You're hurt. Radio duty only.\"", nextScene: 'level23_success', stats: { prof: 2, emp: 1, pat: 0, reg: 1, assert: 2 }, feedback: "Perfect Call. Safe but still values him." },
-                    { text: "\"You're tough! Keep going!\"", nextScene: 'level23_fail', stats: { prof: -2, emp: 1, pat: 0, reg: -1, assert: 0 }, feedback: "Dangerous! Being nice isn't always safe." },
-                    { text: "\"Sit down, liability.\"", nextScene: 'level23_fail', stats: { prof: 1, emp: -3, pat: 0, reg: 0, assert: 1 }, feedback: "Mean. True, but hurtful." }
+                    { text: "\"You're hurt. Radio duty only.\"", nextScene: 'level23_success', stats: { prof: 2, emp: 1, pat: 0, reg: 1, assert: 2 }, feedback: "Perfect Call. Safe but still values him. (+2 Professional, +1 Caring, +1 Calm, +2 Speaking Up)" },
+                    { text: "\"You're tough! Keep going!\"", nextScene: 'level23_fail', stats: { prof: -2, emp: 1, pat: 0, reg: -1, assert: 0 }, feedback: "Dangerous! Being nice isn't always safe. (-2 Professional, +1 Caring, -1 Calm)" },
+                    { text: "\"Sit down, liability.\"", nextScene: 'level23_fail', stats: { prof: 1, emp: -3, pat: 0, reg: 0, assert: 1 }, feedback: "Mean. True, but hurtful. (+1 Professional, -3 Caring, +1 Speaking Up)" }
                 ]
             },
             level23_success: { id: 'level23_success', bg: 'from-red-500 to-orange-500', character: 'chimney', text: "\"Fine. I'll man the comms.\"", speaker: "Chimney", choices: [{ text: "Next Chapter", nextScene: 'level24_scene' }] },
@@ -1024,10 +1024,10 @@
                 text: "CHAPTER 24: The Ambush. A reporter asks: \"Is the fire the department's fault?!\"",
                 speaker: "Reporter",
                 choices: [
-                    { text: "\"No comment.\"", nextScene: 'level24_success', stats: { prof: 2, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Safe. Boring but correct." },
-                    { text: "\"We are doing our best!\"", nextScene: 'level24_success', stats: { prof: 0, emp: 2, pat: 0, reg: 0, assert: 1 }, feedback: "Honest. The public likes heart." },
-                    { text: "*Steal the microphone*", nextScene: 'level24_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! Arrested on live TV!" },
-                    { text: "\"It's nature's fault!\"", nextScene: 'level24_fail', stats: { prof: -1, emp: 0, pat: -1, reg: -1, assert: 1 }, feedback: "Defensive. Makes us look guilty." }
+                    { text: "\"No comment.\"", nextScene: 'level24_success', stats: { prof: 2, emp: 0, pat: 1, reg: 1, assert: 0 }, feedback: "Safe. Boring but correct. (+2 Professional, +1 Patient, +1 Calm)" },
+                    { text: "\"We are doing our best!\"", nextScene: 'level24_success', stats: { prof: 0, emp: 2, pat: 0, reg: 0, assert: 1 }, feedback: "Honest. The public likes heart. (+2 Caring, +1 Speaking Up)" },
+                    { text: "*Steal the microphone*", nextScene: 'level24_fail', stats: { prof: -3, emp: 0, pat: 0, reg: -3, assert: 2 }, feedback: "Crazy Cuckoo! Arrested on live TV! (-3 Professional, -3 Calm, +2 Speaking Up)" },
+                    { text: "\"It's nature's fault!\"", nextScene: 'level24_fail', stats: { prof: -1, emp: 0, pat: -1, reg: -1, assert: 1 }, feedback: "Defensive. Makes us look guilty. (-1 Professional, -1 Patient, -1 Calm, +1 Speaking Up)" }
                 ]
             },
             level24_success: { id: 'level24_success', bg: 'from-blue-200 to-white', character: 'chimney', text: "(Reporter nods)", speaker: "Narrator", choices: [{ text: "Next Chapter", nextScene: 'level25_scene' }] },
@@ -1040,10 +1040,10 @@
                 text: "CHAPTER 25: The Hard Call. The station is burning. You can save ONE thing.",
                 speaker: "The Fire",
                 choices: [
-                    { text: "*Save the Medical Kit*", nextScene: 'end_game', stats: { prof: 3, emp: 0, pat: 0, reg: 2, assert: 1 }, feedback: "Practical. Lives over memories. (+3 Prof)" },
-                    { text: "*Save Pops' Photo*", nextScene: 'end_game', stats: { prof: -1, emp: 3, pat: 0, reg: 0, assert: 0 }, feedback: "Sentimental. The heart of the team. (+3 Emp)" },
-                    { text: "*Save both (Risk Dropping)*", nextScene: 'end_game', stats: { prof: -1, emp: 1, pat: -1, reg: -1, assert: 1 }, feedback: "Greedy. You dropped the kit. (-1 Prof)" },
-                    { text: "*Burn the photo*", nextScene: 'end_game', stats: { prof: -3, emp: -3, pat: 0, reg: -3, assert: 0 }, feedback: "Crazy Cuckoo! Why?!" }
+                    { text: "*Save the Medical Kit*", nextScene: 'end_game', stats: { prof: 3, emp: 0, pat: 0, reg: 2, assert: 1 }, feedback: "Practical. Lives over memories. (+3 Professional, +2 Calm, +1 Speaking Up)" },
+                    { text: "*Save Pops' Photo*", nextScene: 'end_game', stats: { prof: -1, emp: 3, pat: 0, reg: 0, assert: 0 }, feedback: "Sentimental. The heart of the team. (-1 Professional, +3 Caring)" },
+                    { text: "*Save both (Risk Dropping)*", nextScene: 'end_game', stats: { prof: -1, emp: 1, pat: -1, reg: -1, assert: 1 }, feedback: "Greedy. You dropped the kit. (-1 Professional, +1 Caring, -1 Patient, -1 Calm, +1 Speaking Up)" },
+                    { text: "*Burn the photo*", nextScene: 'end_game', stats: { prof: -3, emp: -3, pat: 0, reg: -3, assert: 0 }, feedback: "Crazy Cuckoo! Why?! (-3 Professional, -3 Caring, -3 Calm)" }
                 ]
             },
 
