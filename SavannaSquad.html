@@ -976,6 +976,7 @@
             const [reduceMotion, setReduceMotion] = useState(false);
             const [showSettings, setShowSettings] = useState(false);
             const [winMessage, setWinMessage] = useState("");
+            const [lastChoiceHadRandomEvent, setLastChoiceHadRandomEvent] = useState(false);
             const { speak, stop, isSpeaking } = useTextToSpeech();
 
             const scene = SCENES[currentSceneId];
@@ -1152,7 +1153,7 @@
                 const timeoutId = setTimeout(() => {
                     setScoreAnimations(prev => prev.filter(a => a.id !== id));
                     animationTimeoutsRef.current.delete(timeoutId);
-                }, 1000);
+                }, 2000); // Increased from 1000ms to 2000ms per user request
 
                 animationTimeoutsRef.current.add(timeoutId);
             }, [reduceMotion]);
@@ -1169,8 +1170,12 @@
             const handleChoice = useCallback((choice) => {
                 stop();
 
-                // Random Event Trigger (15% chance)
-                if (!choice.action && !choice.isExit && Math.random() < 0.15) {
+                // Random Event Trigger (7.5% chance, never consecutive)
+                const shouldTriggerRandomEvent = !choice.action && !choice.isExit &&
+                                                 !lastChoiceHadRandomEvent &&
+                                                 Math.random() < 0.075;
+
+                if (shouldTriggerRandomEvent) {
                     const event = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
 
                     // Batch all animations and stats together
@@ -1181,13 +1186,16 @@
                     if (event.effect) {
                         if (!reduceMotion) {
                             Object.entries(event.effect).forEach(([key, val]) => {
-                                const id = Date.now() + Math.random();
-                                newAnimations.push({ id, statName: key, val });
-                                const timeoutId = setTimeout(() => {
-                                    setScoreAnimations(prev => prev.filter(a => a.id !== id));
-                                    animationTimeoutsRef.current.delete(timeoutId);
-                                }, 1000);
-                                animationTimeoutsRef.current.add(timeoutId);
+                                // Only create animation if val is not 0 (Bug fix)
+                                if (val !== 0) {
+                                    const id = Date.now() + Math.random();
+                                    newAnimations.push({ id, statName: key, val });
+                                    const timeoutId = setTimeout(() => {
+                                        setScoreAnimations(prev => prev.filter(a => a.id !== id));
+                                        animationTimeoutsRef.current.delete(timeoutId);
+                                    }, 2000); // Increased to 2000ms per user request
+                                    animationTimeoutsRef.current.add(timeoutId);
+                                }
                             });
                         }
 
@@ -1216,8 +1224,13 @@
                     if (choice.targetChar) {
                         setVisited(prev => new Set(prev).add(choice.targetChar));
                     }
+                    // Mark that this choice had a random event (prevents consecutive events)
+                    setLastChoiceHadRandomEvent(true);
                     return;
                 }
+
+                // Reset random event flag if no event triggered this time
+                setLastChoiceHadRandomEvent(false);
 
                 // Retry action
                 if (choice.action === 'retry') {
@@ -1241,7 +1254,7 @@
                                 const timeoutId = setTimeout(() => {
                                     setScoreAnimations(prev => prev.filter(a => a.id !== id));
                                     animationTimeoutsRef.current.delete(timeoutId);
-                                }, 1000);
+                                }, 2000); // Increased to 2000ms per user request
                                 animationTimeoutsRef.current.add(timeoutId);
                             }
                         });
@@ -1286,7 +1299,7 @@
                 } else if (choice.nextScene) {
                     transitionToScene(choice.nextScene);
                 }
-            }, [stats, reduceMotion, stop, lastChapterStart]);
+            }, [stats, reduceMotion, stop, lastChapterStart, lastChoiceHadRandomEvent]);
 
             const handleFeedbackDismiss = useCallback(() => {
                 stop();
