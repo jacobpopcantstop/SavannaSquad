@@ -1545,13 +1545,13 @@
                                 )}
                                 {scene?.character && (
                                     <div className={`w-72 h-72 md:w-96 md:h-96 ${reduceMotion ? '' : 'animate-in slide-in-from-bottom-8 duration-500'}`}>
-                                        <SavannaAvatar 
-                                            type={scene.character} 
-                                            prop={scene.text.includes("polishing") ? "clipboard" : 
-                                                  scene.text.includes("medal") ? "medal" : 
+                                        <SavannaAvatar
+                                            type={scene.character}
+                                            prop={sceneText.includes("polishing") ? "clipboard" :
+                                                  sceneText.includes("medal") ? "medal" :
                                                   currentSceneId.includes("16") ? "clipboard" :
-                                                  currentSceneId.includes("17") ? "party_hat" : 
-                                                  currentSceneId.includes("18") ? "flag" : 
+                                                  currentSceneId.includes("17") ? "party_hat" :
+                                                  currentSceneId.includes("18") ? "flag" :
                                                   currentSceneId.includes("21") ? "fire" : null}
                                         />
                                     </div>
