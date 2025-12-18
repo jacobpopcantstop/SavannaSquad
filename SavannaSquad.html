@@ -1261,10 +1261,11 @@
             const handleChoice = useCallback((choice) => {
                 stop();
 
-                // Random Event Trigger (7.5% chance, never consecutive)
+                // Random Event Trigger (3% chance, never consecutive, never when choice has feedback)
                 const shouldTriggerRandomEvent = !choice.action && !choice.isExit &&
+                                                 !choice.feedback &&
                                                  !lastChoiceHadRandomEvent &&
-                                                 Math.random() < 0.075;
+                                                 Math.random() < 0.03;
 
                 if (shouldTriggerRandomEvent) {
                     const event = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
@@ -1523,6 +1524,57 @@
                         {/* Main Stage */}
                         <div className={`flex-1 relative flex flex-col bg-gradient-to-b ${scene?.bg || 'from-slate-900 to-black'} transition-colors duration-1000`}>
                             <div className="flex-1 flex items-end justify-center pb-0 mb-[-20px] px-4 relative overflow-hidden">
+                                {/* Contextual Scene Emojis */}
+                                <div className="absolute inset-0 pointer-events-none flex items-center justify-around p-8">
+                                    {currentSceneId.includes('day2') || currentSceneId.includes('level6') || currentSceneId.includes('storm') ? (
+                                        <>
+                                            <span className="text-6xl opacity-20 animate-pulse">⛈️</span>
+                                            <span className="text-5xl opacity-15 animate-pulse delay-100">💧</span>
+                                            <span className="text-6xl opacity-20 animate-pulse delay-200">🌧️</span>
+                                        </>
+                                    ) : currentSceneId.includes('day3') || currentSceneId.includes('level11') || currentSceneId.includes('level12') || currentSceneId.includes('level13') || currentSceneId.includes('level14') || currentSceneId.includes('level15') ? (
+                                        <>
+                                            <span className="text-6xl opacity-20">📰</span>
+                                            <span className="text-5xl opacity-15">🎖️</span>
+                                            <span className="text-6xl opacity-20">🏆</span>
+                                        </>
+                                    ) : currentSceneId.includes('day4') || currentSceneId.includes('level16') || currentSceneId.includes('level17') || currentSceneId.includes('level18') || currentSceneId.includes('level19') || currentSceneId.includes('level20') ? (
+                                        <>
+                                            <span className="text-6xl opacity-20 animate-bounce">🎉</span>
+                                            <span className="text-5xl opacity-15 animate-bounce delay-100">🎊</span>
+                                            <span className="text-6xl opacity-20 animate-bounce delay-200">🎈</span>
+                                            <span className="text-5xl opacity-15 animate-bounce delay-300">🎪</span>
+                                        </>
+                                    ) : currentSceneId.includes('day5') || currentSceneId.includes('level21') || currentSceneId.includes('level22') || currentSceneId.includes('level23') || currentSceneId.includes('level24') || currentSceneId.includes('level25') ? (
+                                        <>
+                                            <span className="text-6xl opacity-25 animate-pulse">🔥</span>
+                                            <span className="text-5xl opacity-20 animate-pulse delay-100">💨</span>
+                                            <span className="text-6xl opacity-25 animate-pulse delay-200">🔥</span>
+                                        </>
+                                    ) : currentSceneId.includes('level5') || currentSceneId.includes('roof') ? (
+                                        <>
+                                            <span className="text-6xl opacity-15">🌙</span>
+                                            <span className="text-4xl opacity-10">⭐</span>
+                                            <span className="text-5xl opacity-12">✨</span>
+                                        </>
+                                    ) : currentSceneId.includes('gym') || currentSceneId.includes('buck') ? (
+                                        <>
+                                            <span className="text-5xl opacity-15">🦁</span>
+                                            <span className="text-4xl opacity-10">💪</span>
+                                        </>
+                                    ) : currentSceneId.includes('loft') || currentSceneId.includes('athena') ? (
+                                        <>
+                                            <span className="text-5xl opacity-15">👑</span>
+                                            <span className="text-4xl opacity-10">⚖️</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span className="text-6xl opacity-10">🚒</span>
+                                            <span className="text-5xl opacity-8">👨‍🚒</span>
+                                        </>
+                                    )}
+                                </div>
+
                                 <div className="absolute inset-0 opacity-10 flex justify-between items-center px-10 pointer-events-none">
                                     <Icon path={ICONS.Shield} size={200} />
                                     <Icon path={ICONS.Heart} size={200} />
